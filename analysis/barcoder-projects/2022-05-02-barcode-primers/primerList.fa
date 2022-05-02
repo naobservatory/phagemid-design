@@ -1,0 +1,60 @@
+> phagemid_backbone.fa, Target Primer 1, Rep=1
+CCGACACGTCTGTGAAATAAGC
+> phagemid_backbone.fa, Target Primer 2, Rep=1
+AGATCCTTACCAGCACTGGTCTT
+> phagemid_backbone.fa, Target Probe, Rep=1
+ATTACCAGGTCTTGGCCGGCGTTCTTTTCC
+> phagemid_backbone.fa, Target Primer 1, Rep=2
+TCCCGAATTGACCAGAACAAACG
+> phagemid_backbone.fa, Target Primer 2, Rep=2
+TCGTGTGTAAGAGCCCGAAGT
+> phagemid_backbone.fa, Target Probe, Rep=2
+TTTAGGCGCTAGCCAGAAACCCACGCG
+> phagemid_backbone.fa, Target Primer 1, Rep=3
+ATCCCCTACTCCAGGTATCCAA
+> phagemid_backbone.fa, Target Primer 2, Rep=3
+CAGTTCTCAAGGGAATACAACCTT
+> phagemid_backbone.fa, Target Probe, Rep=3
+CCTCCGATCTGTCTGCCAGGTATACTGG
+> phagemid_backbone.fa, Target Primer 1, Rep=4
+CGTGGGTAAGAATCTGGTGGTA
+> phagemid_backbone.fa, Target Primer 2, Rep=4
+GCGATTTACTTGGGCCTACTTC
+> phagemid_backbone.fa, Target Probe, Rep=4
+TACCAGGCCACCGGAGATCTACAGAGG
+> phagemid_backbone.fa, Target Primer 1, Rep=5
+AGCTAAGTTGTGCGGGCAACA
+> phagemid_backbone.fa, Target Primer 2, Rep=5
+GACTCACCACAAGCGTGCTTA
+> phagemid_backbone.fa, Target Probe, Rep=5
+CTGTTCTAACTGCGGCTGTCTCGCCGAT
+> phagemid_backbone.fa, Target Primer 1, Rep=6
+CCCCTTTTATCCCTGGTAAACC
+> phagemid_backbone.fa, Target Primer 2, Rep=6
+GGTCCCCTCGTTTAACGACAA
+> phagemid_backbone.fa, Target Probe, Rep=6
+CACAGAACACTTGGCAACCTCACAGGACAC
+> phagemid_backbone.fa, Target Primer 1, Rep=7
+TATTACCGGAGCCGGACAAGT
+> phagemid_backbone.fa, Target Primer 2, Rep=7
+TAGTCTGCCGGTGTGTTCGT
+> phagemid_backbone.fa, Target Probe, Rep=7
+CCGCAGGTCTCGTATTGCAGGCAAGAAC
+> phagemid_backbone.fa, Target Primer 1, Rep=8
+GACACGAAAGGGCACTGATC
+> phagemid_backbone.fa, Target Primer 2, Rep=8
+GTGCGATCAATAATTAGGGCAAGT
+> phagemid_backbone.fa, Target Probe, Rep=8
+CCTCTTCACTAACGGGTAGCCGGTGAAAG
+> phagemid_backbone.fa, Target Primer 1, Rep=9
+AGCTTCGGGCCTAACTAACTACT
+> phagemid_backbone.fa, Target Primer 2, Rep=9
+CGCTTTACGTTACGTCGAAAGC
+> phagemid_backbone.fa, Target Probe, Rep=9
+AATCCGCCGGTCTTCGTGTTCAGCACAG
+> phagemid_backbone.fa, Target Primer 1, Rep=10
+TCCGGATTCGTGCGTAGACT
+> phagemid_backbone.fa, Target Primer 2, Rep=10
+AAAACGTCCACAGGGATCCAACA
+> phagemid_backbone.fa, Target Probe, Rep=10
+CGTGGTCACCTTATCAGACAGCACTACCC

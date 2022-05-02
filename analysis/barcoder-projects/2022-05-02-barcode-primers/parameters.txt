@@ -118,7 +118,7 @@ spacer_maxPalLength = 80	#maximum palindrome length to be a problem
 spacer_gapLimit = 11		#largest loop length in stem-loop to be a problem
 spacer_numMismatch = 1		#maximum number of mismatches in stem of
 				# stem-loop to be a problem
-spacer_primerGap = 100		#number of base pairs separating primers (includes
+spacer_primerGap = 70		#number of base pairs separating primers (includes
 				# the length of the probe)
 
 

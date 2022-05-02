@@ -1,0 +1,1104 @@
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GTTCCTAGGCAGCAGACACTAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGAAATCGTACGCCTATAGCCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = ATAAGTCCAGGTCGCCCTAAAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = ATGCCCCACCATAGGTTGAGAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = TACGACGATGTGCACCAAATGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = AGCGGCTCGAATGCTAACCTAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CCCTTAATGAGACCAGTGGAAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CCGACACGTCTGTGAAATAAGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CCGACACGTCTGTGAAATAAGC
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = CCTCGGAAGCACTTTATGCATTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CAGTTTCGGCACGTAACCACTTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGACTTGTATTCATGGCCCACTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CTCTTTATCCTGAGATACGCGCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CTGCCATGCGATATATAGCCTTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = ACTACTGACATTCAGCTCGTTCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CCAGTTTGCAACTCGCCATTTGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGTACTCTCGAGACTATCCCTGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TCGATGGTCTCCTCATCACAGTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = TCCCCTAACGACATATTGTGGCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = ATTGCCTACCTGAACATCTCGTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = ACAGTACGCGTTCTACTATGTCC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CTCAGGTTCATGAATACTGCCCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = GTCACCTCTACCGATTACGTATG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = TGCGTACTCACTACTCAGATTCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = GCTGACTATGGCTATACATCCTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TACTCGCTATCCTCAATCGTGGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TCCCTGAGCATCACTGGTTACAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGATCCTTACCAGCACTGGTCTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! AGATCCTTACCAGCACTGGTCTT
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TAATGGTCCAGAACCGGCCGCAAGAAAAGG
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = ATTACCAGGTCTTGGCCGGCGTTCTTTTCC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! ATTACCAGGTCTTGGCCGGCGTTCTTTTCC
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = CCGACACGTCTGTGAAATAAGCATATTAATATAAAATAAATTTATATAATTACCAGGTCTTGGCCGGCGTTCTTTTCCTATATTATTAAATTATATAAAATAAAAAGACCAGTGCTGGTAAGGATCT
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = CCGACACGTCTGTGAAATAAGCAAAATTTTAATTATTAAAAAATATAAATTACCAGGTCTTGGCCGGCGTTCTTTTCCTATAATAATTAATATTATATATATAAAAGACCAGTGCTGGTAAGGATCT
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+CCGACACGTCTGTGAAATAAGCAAAATTTTAATTATTAAAAAATATAAATTACCAGGTCTTGGCCGGCGTTCTTTTCCTATAATAATTAATATTATATATATAAAAGACCAGTGCTGGTAAGGATCT
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GACGGTGCAATAAAACCCCCAAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive C's found, sequence shuffled
+Current sequence = ACCTTCAAAACCTAGAGGAGCCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CAAGTACTAACCGAGAATCCCGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TCCCGCATGGGACTAAACAACAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CCATCCCCAAAAAGGTGCGAAAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CAAAACCGAGCCATCACTAGAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = TCTTCCAGAACCAAAACGGAAGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GAGCACCAACCATCGGTTAAAAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TAACGAACTATGGAACGACACCC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TGGAGCATATGCCCAACCCAAAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = ATCTACACATACAAACGGGACCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CTAACAAACATGAGACAGGCCTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = AACAACGTAAGAGTACACGCCTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CACGCGCGCGACAACATTAAAAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 0 C/G's found, sequence shuffled
+Current sequence = GATCAGTAACCAGAACTACACCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TCAACGGACTCCTGAAAACGAAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = AAATAGACACGTACCTCGACCAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CTGAAAAGCAAACTATCGGCACC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TCCCGAATTGACCAGAACAAACG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TCCCGAATTGACCAGAACAAACG
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TCGTGTGTAAGAGCCCGAAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TCGTGTGTAAGAGCCCGAAGT
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = AAATCCGCGATCGGTCTTTGGGTGCGC
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = TTTAGGCGCTAGCCAGAAACCCACGCG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TTTAGGCGCTAGCCAGAAACCCACGCG
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = TCCCGAATTGACCAGAACAAACGTATATAAATTTAAAATTTAAAAATATATTTAGGCGCTAGCCAGAAACCCACGCGATAATATTTAATTTAATTAATAAATAAACTTCGGGCTCTTACACACGA
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+TCCCGAATTGACCAGAACAAACGTATATAAATTTAAAATTTAAAAATATATTTAGGCGCTAGCCAGAAACCCACGCGATAATATTTAATTTAATTAATAAATAAACTTCGGGCTCTTACACACGA
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GCCACACCTACATTACTCGACT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CGCGTCTCCTCTAAACAACATC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = CACCACCGCATTACCTTCTGAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = TCCACCCCAAGCTGTCCTAATA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 0 C/G's found, sequence shuffled
+Current sequence = CACCACACGTCCAGCTCAATTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 0 C/G's found, sequence shuffled
+Current sequence = TAATCCTACCATCGACTCACGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = ATCCCCTACTCCAGGTATCCAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! ATCCCCTACTCCAGGTATCCAA
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GTATCGCTCACGAGCATAATCTAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TAAACCGCTATAGTACTATGCCGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CAGTTCTCAAGGGAATACAACCTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CAGTTCTCAAGGGAATACAACCTT
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = CGGAGGCTAGACAGACGGTCCATATGAC
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = GCCTCCGATCTGTCTGCCAGGTATACTG
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = CCTCCGATCTGTCTGCCAGGTATACTGG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CCTCCGATCTGTCTGCCAGGTATACTGG
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = ATCCCCTACTCCAGGTATCCAAATATTAATTATAAATTTAATAAATTTCCTCCGATCTGTCTGCCAGGTATACTGGATAATAATAAATTTATATAAAATATTAAGGTTGTATTCCCTTGAGAACTG
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+ATCCCCTACTCCAGGTATCCAAATATTAATTATAAATTTAATAAATTTCCTCCGATCTGTCTGCCAGGTATACTGGATAATAATAAATTTATATAAAATATTAAGGTTGTATTCCCTTGAGAACTG
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GCAAATGTGCTTGTAGGTAGGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGGGGGTATCGCATGTAAGTGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive G's found, sequence shuffled
+Current sequence = GAGGCTCGGGAATTATGTTGGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CGTGGGTAAGAATCTGGTGGTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CGTGGGTAAGAATCTGGTGGTA
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GTGCAATTACTTTCCTGGGCCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TGGCATGTTTCAGCTTCCATCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GCGATTTACTTGGGCCTACTTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! GCGATTTACTTGGGCCTACTTC
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GGTACCAGGCCACCGGAGATCTACAGA
+	Checking number of G's vs C's (probe only)...OK
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = GTACCAGGCCACCGGAGATCTACAGAG
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = TACCAGGCCACCGGAGATCTACAGAGG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TACCAGGCCACCGGAGATCTACAGAGG
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = CGTGGGTAAGAATCTGGTGGTATAAATAATTTTAATAATATTTAATTTTTACCAGGCCACCGGAGATCTACAGAGGTTTTAAATTAAATATTTTATTAAAATAGAAGTAGGCCCAAGTAAATCGC
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+CGTGGGTAAGAATCTGGTGGTATAAATAATTTTAATAATATTTAATTTTTACCAGGCCACCGGAGATCTACAGAGGTTTTAAATTAAATATTTTATTAAAATAGAAGTAGGCCCAAGTAAATCGC
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TAACTCAGTGGCGATGCGAAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TCCAGCATTAAGGACAGGGTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = GGTGTCCAAGGTAGAACAGTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GGGCGAATGACGGTAACCATT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CTGGGTACAGTAGCAACATGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = ACACCTGTTGAGAAGGAGGTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGCGAAAGAGGCAGTTGTACC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CGACGCTGAGCATAGAATGTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = AGCTAAGTTGTGCGGGCAACA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! AGCTAAGTTGTGCGGGCAACA
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = ATCAGCTCCAGTTCCAACGAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CGAGGCACTTACGAAATCTCC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = ACAATCTACCGGATAGCCGCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CCTGCTTCACCGAATGCAAGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CGCAGACATAGTCCTCACGAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = TATGGCAATCAGAACCCCCTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CGCACATGCCGCTATACGTAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = GACACTTCAAGGACACTTCCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGAGGCTAAAGCCATCCCTCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GCGCCAACAGTAGCTCTACTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CCACCGATACGATTGACTGCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GACACAGCCGCTGTACAATCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CTAACCTGAGACTTCGAACGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GACTCACCACAAGCGTGCTTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! GACTCACCACAAGCGTGCTTA
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GGCCAAGTCTACAGGGGCAAACTGGCAA
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = CCGGTTCAGATGTCCCCGTTTGACCGTT
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = TCGTTCTTTTTAGCCGCCGGCCAGTGAC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive T's found, sequence shuffled
+Current sequence = CGATCGATCGGCCCTATCCGTTGCGTTT
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = GCCAGCCCCGTTTCTATGCTTTCGGTAG
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = CCAGCCCCGTTTCTATGCTTTCGGTAGG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CCCCCCTTCGGTTGAATCATTGTGTGGC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive C's found, sequence shuffled
+Current sequence = CTGTTCTAACTGCGGCTGTCTCGCCGAT
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CTGTTCTAACTGCGGCTGTCTCGCCGAT
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = AGCTAAGTTGTGCGGGCAACATTTTTTTAATATATTATTTTAATAATACTGTTCTAACTGCGGCTGTCTCGCCGATTTTTATTTTTTATTTTATTTTTTTATTTAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACATTTATAAAATTAAAATTATAAAAAAAACTGTTCTAACTGCGGCTGTCTCGCCGATTATTTTATTAAATATTTTAAAATTAATTAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACAATAATTAAATTTAATTAATATAAATAACTGTTCTAACTGCGGCTGTCTCGCCGATAAAAATATTATTTAATATATTATTATTTAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACATAATTTATTTAAAAATATAATATAATTCTGTTCTAACTGCGGCTGTCTCGCCGATTATTAAATAAATATTTTTATTAAAATTTAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACAAAAATTTTTATATTTATTAATTAAAAACTGTTCTAACTGCGGCTGTCTCGCCGATATAAATTATTATAATTTTTATTAAAAATAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACATTAAAATTTATATATAATTTTAATATACTGTTCTAACTGCGGCTGTCTCGCCGATAAAATTTATAAAATAATAATTTATAAATAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = AGCTAAGTTGTGCGGGCAACAAATATATTTTTTAATATTAAATTTTAACTGTTCTAACTGCGGCTGTCTCGCCGATATATTATATTTAATATTAATAATAAAATAAGCACGCTTGTGGTGAGTC
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+AGCTAAGTTGTGCGGGCAACAAATATATTTTTTAATATTAAATTTTAACTGTTCTAACTGCGGCTGTCTCGCCGATATATTATATTTAATATTAATAATAAAATAAGCACGCTTGTGGTGAGTC
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = ACGCGCTTCCTACTTATCACTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GTCAATTTTCACATCTCCCGCC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 5 C/G's found, sequence shuffled
+Current sequence = GTATCCCTCCCTTAGCCATTAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CCCCTTTTATCCCTGGTAAACC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CCCCTTTTATCCCTGGTAAACC
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GGTCCCCTCGTTTAACGACAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! GGTCCCCTCGTTTAACGACAA
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GTGTCTTGTGAACCGTTGGAGTGTCCTGTG
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = CACAGAACACTTGGCAACCTCACAGGACAC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CACAGAACACTTGGCAACCTCACAGGACAC
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = CCCCTTTTATCCCTGGTAAACCTATAATTATAATTAATAATATTAATTCACAGAACACTTGGCAACCTCACAGGACACTTTAAATAATTAAAAAATTAATAATTTTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTATAAAAATAAATTTTTATAATTTTTCACAGAACACTTGGCAACCTCACAGGACACAATATTTAAATTATATATATATTTAATTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTTAAATAAATATTTATTTTTATTTTTCACAGAACACTTGGCAACCTCACAGGACACATATATATATAATAAATAAAATTATATTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTAAATATTTTAATATTTAAAAAATAACACAGAACACTTGGCAACCTCACAGGACACATTTTTTATTATTATAAATTATTAAATTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCATAAAAATTTTTAATTATTTAATAATCACAGAACACTTGGCAACCTCACAGGACACATATAATTATATAATATTATTATAAATTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTTTTATTAAAAATAAAAAATTAAATACACAGAACACTTGGCAACCTCACAGGACACATTTAAAAATATATAAATTAATAATTTTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTATTATTAAAATTTAAATATATAATACACAGAACACTTGGCAACCTCACAGGACACATTTTTTAAAATAATTATATAATATTTTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon CAT found, trying new spacers
+Current barcode = CCCCTTTTATCCCTGGTAAACCTTATTTAATATTTTATAATTTTTTTACACAGAACACTTGGCAACCTCACAGGACACAATTATTTAATTTTATATTTTTATAATTGTCGTTAAACGAGGGGACC
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+CCCCTTTTATCCCTGGTAAACCTTATTTAATATTTTATAATTTTTTTACACAGAACACTTGGCAACCTCACAGGACACAATTATTTAATTTTATATTTTTATAATTGTCGTTAAACGAGGGGACC
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TCTACGGGACGCAGAATATGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = GTCCACTACAGGGGGTCAAAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGGTGACTCGTGCGCTCAAAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = CTGCGATAAAGAGCCTTGGCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GTCGCAGATTCGACACGGAAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = AACCCGTGCACATTATGAGGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CCGAAGTGGTAAAGTGCCCAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TACCATTATAGCGCGCGAAGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CGATTCATCATGAAGCAGGGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = GCAAGTTAACCTTCGGACGGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TATTACCGGAGCCGGACAAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TATTACCGGAGCCGGACAAGT
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GCCGTGCTTTTTGTGAGGTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CTGGGCCGTGGTTGTTCATT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TTCGTTGCGGGTTCTGCTAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GTTCGCGGTGTGCTGCTTTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TGGCCGTTCTTGAGTGCTGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGTTGGGATGCCCTTTTGGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGGTTTCTCGTTCGGGTGAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GCCTGTGGTTTAGGTCCTTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TAGTCTGCCGGTGTGTTCGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TAGTCTGCCGGTGTGTTCGT
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GATGCCCGGGAATCCAGCCTAAGACTGT
+	Checking number of G's vs C's (probe only)...OK
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = ATGCCCGGGAATCCAGCCTAAGACTGTG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = CCGCAGGTCTCGTATTGCAGGCAAGAAC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CCGCAGGTCTCGTATTGCAGGCAAGAAC
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = TATTACCGGAGCCGGACAAGTTTTATATAATATATAATTTAATTTAATCCGCAGGTCTCGTATTGCAGGCAAGAACTAAATTTATATATTTAATAATAAATTAACGAACACACCGGCAGACTA
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+TATTACCGGAGCCGGACAAGTTTTATATAATATATAATTTAATTTAATCCGCAGGTCTCGTATTGCAGGCAAGAACTAAATTTATATATTTAATAATAAATTAACGAACACACCGGCAGACTA
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = AGTAAAACGCGCCTACGGGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = GGGATCTAGAAAACCGCGCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TTGGAACACAGAGAGCCGCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = AGGAATCACGAATCGGGCCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = ACGATGGATCACAAAGGCCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 5 C/G's found, sequence shuffled
+Current sequence = CCGTACCAATAGACAGGGGA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = GCATCCAATAACGGAGAGCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = AACCGCGAGAAATGGTCACG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GACACGAAAGGGCACTGATC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! GACACGAAAGGGCACTGATC
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = CATAAGGGAAGGAGACTCTTTAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = AGGTGACTTTAGCTAAAATAGCGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TCAGGAAAACATGTTGTAGTGAGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CATACTAGTGCGGATTAATAAGGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TACGTAGGTACATGTGGCATAAAG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = GATATCCACGTAAATGAGAGGTGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GTGCGATCAATAATTAGGGCAAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! GTGCGATCAATAATTAGGGCAAGT
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = GCCTCTTCACTAACGGGTAGCCGGTGAAA
+	Checking number of G's vs C's (probe only)...OK
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = CCTCTTCACTAACGGGTAGCCGGTGAAAG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CCTCTTCACTAACGGGTAGCCGGTGAAAG
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = GACACGAAAGGGCACTGATCTATTTTAATATTTAAAATTTTATTAACCTCTTCACTAACGGGTAGCCGGTGAAAGATATTTATATTAATTATTAATTTTATACTTGCCCTAATTATTGATCGCAC
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+GACACGAAAGGGCACTGATCTATTTTAATATTTAAAATTTTATTAACCTCTTCACTAACGGGTAGCCGGTGAAAGATATTTATATTAATTATTAATTTTATACTTGCCCTAATTATTGATCGCAC
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = AGCTTCGGGCCTAACTAACTACT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! AGCTTCGGGCCTAACTAACTACT
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TAATGCATCCAGCGTCCTAGTG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = TGGTGACCTCCTGTAATGACAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = AATGTGACTCGTGCCTAGACCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TTACTAGCAGCGCAATTCGGTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = CAAGGTTGTACTCAGGACTCCT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = AAGCGCGTATTAACCGCTCGTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = CTGCACCGTTCGCAATGTGTAA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TGCCACTGACGCTTATTAACGG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGATGCTCACCGTATGCAGTAC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = ATGCCACTCGTGGTGCATACAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TAGCAAGTACGACGTCTTCGTC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CGAACCCTGTCCAGTGGATTAT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 0 C/G's found, sequence shuffled
+Current sequence = TGCGTGAGCCCCACTTGAAATT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 0 C/G's found, sequence shuffled
+Current sequence = CGCTTTACGTTACGTCGAAAGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CGCTTTACGTTACGTCGAAAGC
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = AATCCGCCGGTCTTCGTGTTCAGCACAG
+	Checking number of G's vs C's (probe only)...OK
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! AATCCGCCGGTCTTCGTGTTCAGCACAG
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = AGCTTCGGGCCTAACTAACTACTATATTTAATAATTATAATATAAATATTAATCCGCCGGTCTTCGTGTTCAGCACAGTTTTAAATTTTTTTAAATTAATTTATAGCTTTCGACGTAACGTAAAGCG
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = AGCTTCGGGCCTAACTAACTACTATTAAATAATTATATTTATATAAAATAAATCCGCCGGTCTTCGTGTTCAGCACAGTATATTAATATTATAAATAAAATTTTAGCTTTCGACGTAACGTAAAGCG
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+AGCTTCGGGCCTAACTAACTACTATTAAATAATTATATTTATATAAAATAAATCCGCCGGTCTTCGTGTTCAGCACAGTATATTAATATTATAAATAAAATTTTAGCTTTCGACGTAACGTAAAGCG
+
+Searching for Target Primer 1 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TCGGGGCCATCTCTAGTAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive G's found, sequence shuffled
+Current sequence = ATGAGGCGTTCACTTGTCCG
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 4 C/G's found, sequence shuffled
+Current sequence = TTAGCGGTGTTCAGCTGCCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = AATCGTTCTGGGTCGGCCTA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = CTAGGTGCACGTGTTGCTCA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = GACGGCGTCTATGGCCATTT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 1 C/G's found, sequence shuffled
+Current sequence = TGAGGCTCCTACTGTCGAGT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TGCGCTGTCACAGTTAGTGC
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...
+		FAIL: 3 C/G's found, sequence shuffled
+Current sequence = TCCGGATTCGTGCGTAGACT
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! TCCGGATTCGTGCGTAGACT
+
+Searching for Target Primer 2 for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = AAAACGTCCACAGGGATCCAACA
+	Checking for # C/G's !=2 in last 5 bps @ 3' end (primers only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! AAAACGTCCACAGGGATCCAACA
+
+Searching for Target Probe for target genome file phagemid_backbone.fa:
+	New sequence generated
+Current sequence = TACGAGGGCAGTTGACCAGCTATTGTGGG
+	Checking number of G's vs C's (probe only)...
+		FAIL: More Gs than Cs found, complement taken
+Current sequence = ATGCTCCCGTCAACTGGTCGATAACACCC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon ATG found, sequence shuffled
+Current sequence = GCCTGGATCACCCGACTAGTCATCCACAT
+	Checking for G on 5' end (probe only)...
+		FAIL: G found @ 5' end, sequence shifted
+Current sequence = CCTGGATCACCCGACTAGTCATCCACATG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = CTCAGCTCGTTCGTCCAACTGAACGCACA
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = TCGTGAACCCCCCAATGGTGTCCACTCAA
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...
+		FAIL: Too many consecutive C's found, sequence shuffled
+Current sequence = CCCCAGTGACTTGGAACCCTTACAGCCTA
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...
+		FAIL: Stem-loop structure detected, sequence shuffled
+Current sequence = CACGATCCCATCAGCGCTATCACTCGATG
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = TACGCACCCATAGCTTGGCCTAGTACACC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...
+		FAIL: Start codon CAT found, sequence shuffled
+Current sequence = CGTGGTCACCTTATCAGACAGCACTACCC
+	Checking for G on 5' end (probe only)...OK
+	Checking for bp repeats...OK
+	Checking for start codons...OK
+	Checking for stem-loops...OK
+	Blasting vs previous primers file: allPrevPrimers.fa...OK
+	Blasting vs current primers file: primerList.fa...OK
+	Blasting vs targetGenomes genome file: phagemid_backbone.fa...OK
+Sequence passed! CGTGGTCACCTTATCAGACAGCACTACCC
+
+All primers generated, adding spacers: 
+	Computing spacer GC content to match genome...done
+Current barcode = TCCGGATTCGTGCGTAGACTAATAAAATATAATTTATTAAAATAAACGTGGTCACCTTATCAGACAGCACTACCCTATTTAAATATTTAAATTATTATAAATGTTGGATCCCTGTGGACGTTTT
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = TCCGGATTCGTGCGTAGACTTATTTTTAATTAAATATAAAAAAAAACGTGGTCACCTTATCAGACAGCACTACCCTAAATATTATTTTTAAATATTTTAAATGTTGGATCCCTGTGGACGTTTT
+	Checking for stem-loops...
+		FAIL: stem-loop found, trying new spacers
+Current barcode = TCCGGATTCGTGCGTAGACTATTATAAATAATATAAAAAAATTTATCGTGGTCACCTTATCAGACAGCACTACCCTAAAAAATAAATAATTATATATAATATGTTGGATCCCTGTGGACGTTTT
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon ATG found, trying new spacers
+Current barcode = TCCGGATTCGTGCGTAGACTTTTATAATTAATATTAAATATTAATACGTGGTCACCTTATCAGACAGCACTACCCTTATTATTTAATTAAATTATTAATAATGTTGGATCCCTGTGGACGTTTT
+	Checking for stem-loops...OK
+	Checking for start codons...
+		FAIL: start codon ATG found, trying new spacers
+Current barcode = TCCGGATTCGTGCGTAGACTATATTTTATTTTATATTTATATAATTCGTGGTCACCTTATCAGACAGCACTACCCAATAAATTTAATTTATATATTTAAATTGTTGGATCCCTGTGGACGTTTT
+	Checking for stem-loops...OK
+	Checking for start codons...OK
+
+Complete barcode generated for phagemid_backbone.fa! 
+
+Complete barcode sequence = 
+
+TCCGGATTCGTGCGTAGACTATATTTTATTTTATATTTATATAATTCGTGGTCACCTTATCAGACAGCACTACCCAATAAATTTAATTTATATATTTAAATTGTTGGATCCCTGTGGACGTTTT
+
+Script end.
+
