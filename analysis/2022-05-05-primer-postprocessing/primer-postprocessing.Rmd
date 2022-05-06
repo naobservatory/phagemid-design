@@ -1,0 +1,229 @@
+
+# R Setup
+
+```{r}
+library(here)
+library(tidyverse)
+library(fs)
+# library(speedyseq)
+# library(metacal)
+
+# library(cowplot)
+# theme_set(theme_cowplot())
+# library(patchwork)
+# library(ggbeeswarm)
+
+import::from(Biostrings, readDNAStringSet, DNAString, DNAStringSet,
+  reverseComplement)
+```
+
+# Sequence setup
+
+Read in the sequences output by barCoder,
+
+
+```{r}
+base_dir <- here('analysis/barcoder-projects/2022-05-05-barcode-primers')
+# fns <- c(barcode = 'barcodeList.fa', primer = 'primerList.fa') %>%
+barcodes <- path(base_dir, 'barcodeList.fa') %>%
+  readDNAStringSet()
+primers <- path(base_dir, 'primerList.fa') %>%
+  readDNAStringSet()
+dna <- c(barcodes, primers)
+```
+
+Parse the sequence names to get a table with info about each sequence.
+
+```{r}
+dna_tbl <- dna %>%
+  as.character %>%
+  enframe(value = 'sequence') %>%
+  separate(name, into = c('target_genome', 'sequence_type', 'replicate'),
+    remove = FALSE, sep = ', ') %>%
+  mutate(
+    across(target_genome, str_replace, '^[ ]+', ''),
+    sequence_type = ifelse(sequence_type == '', 'Barcode', sequence_type),
+    across(replicate, str_extract, '[0-9]+$'),
+    across(replicate, as.integer),
+    length = nchar(sequence)
+  ) %>%
+  glimpse
+```
+
+# Get the spacer and probe start and stop locations
+
+Compute the spacer locations from the primer and barcode lengths,
+
+```{r}
+dna_pos <- dna_tbl %>%
+  select(target_genome, replicate, sequence_type, length) %>%
+  pivot_wider(names_from = sequence_type, values_from = length,
+    names_glue = '{.name}_length'
+  ) %>%
+  janitor::clean_names() %>%
+  mutate(
+    spacer_start = target_primer_1_length + 1,
+    spacer_end = barcode_length - target_primer_2_length,
+  )
+```
+
+Find the probe locations using string matching
+
+```{r}
+probe_pos <- dna_tbl %>%
+  select(target_genome, replicate, sequence_type, sequence) %>%
+  pivot_wider(names_from = sequence_type, values_from = sequence) %>%
+  janitor::clean_names() %>%
+  mutate(
+    probe_loc = str_locate(barcode, target_probe),
+    across(probe_loc, as_tibble),
+  ) %>%
+  unpack(probe_loc, names_sep = '_') %>%
+  rename_with(.cols = starts_with('probe_loc'), str_replace, '_loc', '') %>%
+  glimpse
+
+#> check
+tmp <- probe_pos %>%
+  transmute(target_probe, 
+    pred = str_sub(barcode, probe_start, probe_end)
+  )
+stopifnot(all.equal(tmp$target_probe, tmp$pred))
+rm(tmp)
+```
+
+Create a wide table with all sequences and positions,
+
+```{r}
+dna_wide <- left_join(
+  probe_pos, 
+  dna_pos, 
+  by = c("target_genome", "replicate")
+) %>%
+  mutate(
+    spacer = str_sub(barcode, spacer_start, spacer_end),
+  # NOTE: Need to reverse complement the primer seq to construct barcode
+    target_primer_2_rc = map_chr(target_primer_2,
+      ~ DNAString(.x) %>% reverseComplement %>% as.character)
+  )
+# TODO: check that adding the primers + spacer gives the original barcode
+```
+
+# Create final barcodes (keeping original probes)
+
+Use the first barcode as the model to get left and right spacer sequences from,
+
+```{r}
+model <- dna_wide %>%
+  filter(replicate == 1) %>%
+  mutate(
+    spacer_1 = str_sub(barcode, spacer_start, probe_start - 1),
+    spacer_2 = str_sub(barcode, probe_end + 1, spacer_end)
+  )
+  
+# check
+s1 <- model$barcode
+s2 <- str_c(
+  model$target_primer_1, 
+  model$spacer_1, 
+  model$target_probe, 
+  model$spacer_2, 
+  model$target_primer_2_rc
+  #> model$target_primer_2 %>% DNAString %>% reverseComplement %>% as.character
+)
+stopifnot(identical(s1, s2))
+```
+
+```{r}
+model$spacer_1
+#> [1] "GTGCCCTGTAATCTATCTGTCAGTCAAGC"
+model$spacer_2
+#> [1] "AGGTCCACTCCCCTCGTCACTATACCAAGAA"
+```
+
+Check the length distribution of the original barcodes,
+
+```{r}
+dna_wide %>% pull(barcode_length) %>% table
+#> .
+#> 132 133 134 135 136 
+#>  13  12  17   4   4 
+```
+
+We can remove up to 7 bp from the spacers.
+
+```{r}
+model <- model %>%
+  mutate(across(c(spacer_1, spacer_2), str_sub, end = -4))
+model$spacer_1
+#> [1] "GTGCCCTGTAATCTATCTGTCAGTCA"
+model$spacer_2
+#> [1] "AGGTCCACTCCCCTCGTCACTATACCAA"
+```
+
+```{r}
+dna_wide1 <- dna_wide %>%
+  mutate(
+    new_barcode = str_c(target_primer_1, model$spacer_1, target_probe,
+      model$spacer_2, target_primer_2_rc),
+  )
+```
+
+For the final export, might be nice to have updated lengths and start/stop positions,
+
+```{r}
+final_tbl <- dna_wide1 %>%
+  transmute(
+    target_genome, replicate,
+    barcode = new_barcode,
+    barcode_length = nchar(barcode),
+    primer_1 = target_primer_1, 
+    primer_1_length = nchar(primer_1), 
+    primer_2 = target_primer_2, 
+    primer_2_length = nchar(primer_2), 
+    probe = target_probe,
+    probe_length = nchar(probe),
+  )
+```
+
+Let's also save a version of this table with the original barcodes,
+
+```{r}
+org_tbl <- dna_wide %>%
+  transmute(
+    target_genome, replicate,
+    barcode,
+    barcode_length = nchar(barcode),
+    primer_1 = target_primer_1, 
+    primer_1_length = nchar(primer_1), 
+    primer_2 = target_primer_2, 
+    primer_2_length = nchar(primer_2), 
+    probe = target_probe,
+    probe_length = nchar(probe),
+  )
+```
+
+## Save output
+
+```{r}
+# dir_create(here('output'))
+dir_create(here('output/2022-05-05-barcode-primers'))
+```
+
+```{r}
+final_tbl %>%
+  write_csv(here('output/2022-05-05-barcode-primers', 'barcodes-postprocessed.csv'))
+org_tbl %>%
+  write_csv(here('output/2022-05-05-barcode-primers', 'barcodes-unmodified.csv'))
+```
+
+```{r}
+org_tbl %>% pull(barcode_length) %>% table
+#> .
+#> 132 133 134 135 136 
+#>  13  12  17   4   4 
+final_tbl %>% pull(barcode_length) %>% table
+#> .
+#> 126 127 128 129 130 
+#>  13  12  17   4   4 
+```
+

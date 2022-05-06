@@ -1,0 +1,300 @@
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=1
+GCACGTTCAATCGGGATAATCC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=1
+TAGTGACGTAGGGCAACTTTAGC
+> phagemid_backbone_clean.fa, Target Probe, Rep=1
+CCCTTCCTGAGTCAAACGGTACACTAAGCG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=2
+CAGGTATCTAGCGTGTTGAGTTC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=2
+TGCTTGTCTAAGCAGGGTGAAG
+> phagemid_backbone_clean.fa, Target Probe, Rep=2
+ACGCGACTACTTCTTCTCGGCGGTTGATAC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=3
+GAGAGATAGCTCAACGAGTAGCA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=3
+ACACCACGGATTGGAATCCCAAA
+> phagemid_backbone_clean.fa, Target Probe, Rep=3
+CCAAGGACGCAATAGCCTTACAACTGGCAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=4
+GTGGTCACTTACGTACTCTTTCG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=4
+TGGCTTATCGCACACGCTTGT
+> phagemid_backbone_clean.fa, Target Probe, Rep=4
+AGATACCCAACTCACTCGTTGTCTCCAGGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=5
+TATCTCCCTCCGTGACTGTAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=5
+TACAGACCCACAGGACAAGCT
+> phagemid_backbone_clean.fa, Target Probe, Rep=5
+TAATCAAGACGCCAGCCGTTCAGGATAGCC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=6
+AAGCGCGCTTTAAGAGGTAGAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=6
+CCCCTCCGAGATTAGTTTTCTAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=6
+AAGAAACTCTCTGCCCTAAGGGCTCTAGGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=7
+CGAGAGCCAAGGATAGTAGTC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=7
+ATCTCAGGGACAACGGAGTCAA
+> phagemid_backbone_clean.fa, Target Probe, Rep=7
+CTCCCTCTAGGCTTTGTCACTTCACTCCAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=8
+ACCTGGGAATTGCGACACCTA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=8
+CCGCAACGCTTATTCGCTTAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=8
+CGACCTACGGTCGATTAGTGTGCACTTCAC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=9
+TCCCCGTTTCCGTTTGTCCTAA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=9
+TAACCACCTGACACGGAAGGAA
+> phagemid_backbone_clean.fa, Target Probe, Rep=9
+TGCTAGCTCCCGATCGACCTTGCTAACTAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=10
+GCAGTGCTTTGACCGTGAGTA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=10
+GGTCTCTCTGCACGAAACAAG
+> phagemid_backbone_clean.fa, Target Probe, Rep=10
+AAACCCGAGAGTCCCCTAGTAGGTTCGAAC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=11
+GCTGTCGTTAGAGGACCCTAT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=11
+ACGCAGGTTACCCCTTTTGAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=11
+ATTTAGGAGGTCTTCTCTGTCCACAGCCGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=12
+CGGTTGTCCCAAACAGTAGAG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=12
+AGGTGGCGCTTAACGAACTCA
+> phagemid_backbone_clean.fa, Target Probe, Rep=12
+TGACGCCTGCTTGGATTTGAGTAGCCCCTT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=13
+ATCCCGAGTACGGTTAGTGAGTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=13
+GCTGACACGGATTGTTGATTTGC
+> phagemid_backbone_clean.fa, Target Probe, Rep=13
+AAGTCCCAGGGTTCCACTGTATTTCGCGTG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=14
+GTTTACTGACTCAGGCGCTTTG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=14
+TGGCGTAATCAGGTGTCTGTCA
+> phagemid_backbone_clean.fa, Target Probe, Rep=14
+CGCCAAGGGCGAACTTGCGTTTACAACACT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=15
+GGGTTCAATAGGACGTGGTTCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=15
+CTCCGCGGCTGATATTTGAAGA
+> phagemid_backbone_clean.fa, Target Probe, Rep=15
+CCCAGTACCAAACGATTACGCGGCTAAACG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=16
+TGACGGAGACGGATAGTTCACT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=16
+GGAGTGCTCGTTGTTCTTTCAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=16
+CCAAGCACTCGAACGGCCTATTTATCCGTC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=17
+GCCTCAACTAGCTTCAGTCTAG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=17
+AGAAGACGCTTACGTGGTTGAG
+> phagemid_backbone_clean.fa, Target Probe, Rep=17
+TCGCAATTCCTGGAGTATCCCAACCTGAGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=18
+TACTACCACTTGCCCGATATCG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=18
+GCTAGCGGATTCACTGACAAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=18
+ACCACAGTTAGGTTCGAGCTCCCACTGTAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=19
+TCTCTGATACACCGTCACTTCCA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=19
+CACAGTAATCCCTGGTTCGCTTT
+> phagemid_backbone_clean.fa, Target Probe, Rep=19
+CTCAGCACACAACCCCGGATATCAGTCACA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=20
+TACAGCCTTCGCTGTCAAGCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=20
+ACCACTGGTGGTTCAACTTCAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=20
+AAACCCTGCCGTTATCCCGAACACGTTGTG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=21
+CGACAAACCACAGTGCCAGAT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=21
+CAATCACCAAAATCCCCGATTCG
+> phagemid_backbone_clean.fa, Target Probe, Rep=21
+CAGTCAAAACACTCACCGCCTAGTCCGCTA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=22
+GCAACCCACACTCACACGTTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=22
+AACGCCGAATCACAGACTTTGC
+> phagemid_backbone_clean.fa, Target Probe, Rep=22
+CTAGCGACTCCGATACCAAGTAGAACAGGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=23
+TACGCTGAGAGTGGGAATATCGA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=23
+GTCGTGGCGAAATAGCTTCGA
+> phagemid_backbone_clean.fa, Target Probe, Rep=23
+TCTATCCTACTTACACGGCACAGGCGCGAT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=24
+TCGTTCGCTACTGAGCTTGCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=24
+CAGTGCAAGCGAACCAAGCTTA
+> phagemid_backbone_clean.fa, Target Probe, Rep=24
+CCAAGTGAGCAATACCGTCCGCCAACTAAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=25
+TACCGAGGCAAGTTTGTGAGTAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=25
+CTCGATAATCACCTCGCTAAGTC
+> phagemid_backbone_clean.fa, Target Probe, Rep=25
+ACCTCAGTGATCCACCTTCGCGGTCTATTG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=26
+GTCCGCGTATCCGTTAATTGCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=26
+TGGAGATCGATAGCCCTACTC
+> phagemid_backbone_clean.fa, Target Probe, Rep=26
+AGCTCCTTACCCGTGAGTTCTACGCTACAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=27
+CAAGGCAGAGCCAGATCGATA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=27
+GTATCAACCTGGTCGCTGTCA
+> phagemid_backbone_clean.fa, Target Probe, Rep=27
+ATTCAGGAGAACCGCGGCAGACCCTATTGT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=28
+AGCAAATCGCTAGGTGAGTGCTA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=28
+AGGTTGCTCCTCAGCTGACTA
+> phagemid_backbone_clean.fa, Target Probe, Rep=28
+TTATACTAGAACGCCCAGACGCGCTGTACG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=29
+ATCTCTACCGGGTACTCAGGATA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=29
+TGCACTCGCCTACGATTCAGA
+> phagemid_backbone_clean.fa, Target Probe, Rep=29
+CCTAAAGCCACTCACTCCCACACCTAAGAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=30
+GGGACGATAAGCACTGGTCAA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=30
+ACCCACGATAAGGTCCGATTC
+> phagemid_backbone_clean.fa, Target Probe, Rep=30
+CTCTGAGATACCCGACTAGCGGAAGTAACC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=31
+GAGAGTAAGGCTGAGGTTTACAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=31
+CGTTGCTTCGCTAGACAACCA
+> phagemid_backbone_clean.fa, Target Probe, Rep=31
+TCGACTCCCAGTCGTTGTGCGTATCTCAGT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=32
+TATTGGCTGAGTCGCAGTGTAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=32
+CTGAGCGCTGTTAAGCTCGAT
+> phagemid_backbone_clean.fa, Target Probe, Rep=32
+AATAGCCACACACAATCCCGAGCGGCTCTA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=33
+AAGGCCAAATCACGCAGGTAAG
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=33
+CTCTACGGAAGTCTCGTCTAAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=33
+CGTCTCTACTCGGAGTATCGCTTCCTCTGT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=34
+TGAAAGGCTGAACCCGAACCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=34
+TCACCGACCCTCTAAACAAATCC
+> phagemid_backbone_clean.fa, Target Probe, Rep=34
+CACTTTCAGGTGCGACGATCCTATTCTGGC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=35
+TTCCTCTAGTGCCGCTACGTA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=35
+GTTGTGACTCGGCTAAGAGTTC
+> phagemid_backbone_clean.fa, Target Probe, Rep=35
+AGACCGAACCGCGACGCAAAAGAGTTAGTC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=36
+ACTTAGCAAACCCCGGAGGAT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=36
+CCAATCGAGGAGTGAGTTGAG
+> phagemid_backbone_clean.fa, Target Probe, Rep=36
+CTTTCTTCTCGCTCAAACGCAACGTCGACG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=37
+AAGAAGTGTGCCAACCGTATAGC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=37
+ATTGGGCTACCGCTGAAATCCA
+> phagemid_backbone_clean.fa, Target Probe, Rep=37
+CTTGCGGGAGCTACTTAGATACAAACGCCG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=38
+AAACTGGCCGGTAGGAAGCTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=38
+GTGTACGAGGTGCAACTGAGT
+> phagemid_backbone_clean.fa, Target Probe, Rep=38
+ACCTACAACTATCGTCCGTCAAGCCCAGCT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=39
+AGTAAGTGCTCCTGGCACACT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=39
+CGCTAACAGGTCTTTCCACAAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=39
+ATTCTTCTGCGAGTTGGCTTGCCGATCACC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=40
+CTCCGTTGAGCAACGAGTCTA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=40
+GTGTCGTGTGCTAGTCGTTCT
+> phagemid_backbone_clean.fa, Target Probe, Rep=40
+AATACCTACCGCGCCCTATTTGACAGCCTC
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=41
+TCTAGTGCGACCAGGAAGTGA
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=41
+CAGGAACCGTACTAGCTAACGA
+> phagemid_backbone_clean.fa, Target Probe, Rep=41
+CCCCTTTAACTAAGCCTAGGTCTCTCTGGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=42
+CCTACAAAGACCCTCTCGGTTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=42
+CTGAAGTCCACGCGTATCGTTA
+> phagemid_backbone_clean.fa, Target Probe, Rep=42
+CCAAGTCACGACGGCGACGATTAGTGCAAA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=43
+CTAGGGTGTTCTGGAAGTTGCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=43
+CGTCGAAAGAGGCTTCGTACT
+> phagemid_backbone_clean.fa, Target Probe, Rep=43
+AGTACGGGCCAGCTATCCAACCTTAGTGGA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=44
+GTATCGCGCTGTCTGTTGGTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=44
+ATCAGCGGAACACGGAATTCCT
+> phagemid_backbone_clean.fa, Target Probe, Rep=44
+ATTGGCACAAAACCCGCCTTAACTCCAGGG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=45
+CCCGGGAAACAGTCTAGATCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=45
+CACAGAGGCGTTGTAGTCACA
+> phagemid_backbone_clean.fa, Target Probe, Rep=45
+TCAGTTGAGAGCCGTACCTCCCGTTGTTTG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=46
+CCGAACTGACGTTACTCAAGAC
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=46
+AACCCTCCAAAGACAGGTGTTC
+> phagemid_backbone_clean.fa, Target Probe, Rep=46
+TTACCGTCACCACCACACACAAGGGAAGTG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=47
+GCTGAGGTTGTAGGAGCAACT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=47
+GTTGCCGGAACTAGACCAAGA
+> phagemid_backbone_clean.fa, Target Probe, Rep=47
+CACCCCTGCCCAGGTTCGGAAGTTTAAAGT
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=48
+CCGGGAAACCAAGGAAGCTTT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=48
+CAGTAGTGCACTCTGCCAAAC
+> phagemid_backbone_clean.fa, Target Probe, Rep=48
+AGAACAAAACAACGTGACCTCCGCCCCAAG
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=49
+GGTGTCTAGGTCAGAGCGTAT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=49
+ATCTCAACGGAAGCTGGAGAGTT
+> phagemid_backbone_clean.fa, Target Probe, Rep=49
+CTGTACTACACGGCGACGCACGATAGTCAA
+> phagemid_backbone_clean.fa, Target Primer 1, Rep=50
+CCAGCTAATTTAACCCGCAACCT
+> phagemid_backbone_clean.fa, Target Primer 2, Rep=50
+TTAGTCTCGCTCGACGGGTAA
+> phagemid_backbone_clean.fa, Target Probe, Rep=50
+TTTCGGCAACACGTGGATTTTACCGAGCCC
