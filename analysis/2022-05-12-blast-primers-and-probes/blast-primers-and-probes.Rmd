@@ -1,0 +1,109 @@
+
+# R Setup
+
+```{r}
+library(here)
+library(tidyverse)
+library(fs)
+library(googlesheets4)
+# library(speedyseq)
+# library(metacal)
+
+# library(cowplot)
+# theme_set(theme_cowplot())
+# library(patchwork)
+# library(ggbeeswarm)
+
+import::from(Biostrings, readDNAStringSet, DNAString, DNAStringSet,
+  writeXStringSet, reverseComplement)
+```
+
+# Sequence setup
+
+Read in the primer and barcode sequences in the first and second sets,
+
+```{r}
+fns <- c(
+  'output/2022-05-02-barcode-primers/barcodes-postprocessed.csv',
+  'output/2022-05-05-barcode-primers/barcodes-postprocessed.csv'
+) %>%
+  here
+x <- tibble(set = 1:2, file = fns) %>%
+  mutate(
+    data = map(file, read_csv, col_types = 'cicicicici')
+  ) %>%
+  unnest(data) %>%
+  glimpse
+```
+
+We can subset to just the barcodes that were ordered, as these are the only viable candidates we need to evaluate.
+
+For set 1, Anjali ordered all barcodes >= 125bp in length.
+For set 2, Anjali ordered 20 barcodes passing a secondary-structure check; we can find this set from a Google Sheet.
+
+```{r}
+set2_sheet <- 
+  # 'https://docs.google.com/spreadsheets/d/1vx3hgAowibfDIi7tG7E5eALsZu7wZEX22ZD4ph5slw4/edit#gid=639702623'
+'https://docs.google.com/spreadsheets/d/1vx3hgAowibfDIi7tG7E5eALsZu7wZEX22ZD4ph5slw4'
+ag_thermo <- read_sheet(set2_sheet, 'Thermo Probes')
+```
+
+Confirm compatibility of the two sheets:
+
+```{r}
+ag1 <- ag_thermo %>%
+  janitor::clean_names() %>%
+  select(assay_name, 
+    primer_1 = forward_primer_sequence, 
+    primer_2 = reverse_primer_sequence, 
+    probe = probe_sequence)
+x1 <- x %>%
+  mutate(
+    across(replicate, formatC, width = 3, flag = "0"),
+    assay_name = str_glue('qpcr_backbone_s{set}_{replicate}') %>% as.character
+  )
+x2 <- x1 %>%
+  filter(assay_name %in% ag1$assay_name) %>%
+  select(assay_name, primer_1, primer_2, probe)
+stopifnot(all.equal(x2, ag1))
+```
+
+Let's create a new dataframe marking which were purchased and creating unique barcode names,
+
+```{r}
+barcodes <- x1 %>%
+  mutate(
+    purchased = (set == 1 & barcode_length >= 125) | 
+      (set == 2 & assay_name %in% ag1$assay_name)
+  )
+```
+
+Next, let's create a DNAStringSet of the primers and probes, with unique identifiers.
+(Subsetting to just the purchased ones)
+I'll make the sequence ids of the format `{assay_name}_{sequence type}`.
+
+```{r}
+primers <- barcodes %>%
+  filter(purchased) %>%
+  select(assay_name, primer_1, primer_2, probe) %>%
+  pivot_longer(-assay_name, names_to = 'type', values_to = 'sequence') %>%
+  mutate(
+    across(type, str_replace, '_', ''), # Remove underscores
+    sequence_id = str_glue('{assay_name}_{type}')
+  ) %>%
+  glimpse
+
+primers_dna <- primers %>%
+  select(sequence_id, sequence) %>%
+  deframe %>%
+  DNAStringSet
+```
+
+Export Fasta file
+
+```{r}
+dir_create(here('output', '2022-05-12-blast'))
+query_fn <- here('output', '2022-05-12-blast', 'primers-and-probes.fasta')
+writeXStringSet(primers_dna, query_fn)
+```
+
