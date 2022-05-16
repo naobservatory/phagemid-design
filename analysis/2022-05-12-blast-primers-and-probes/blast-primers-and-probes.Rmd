@@ -99,11 +99,33 @@ primers_dna <- primers %>%
   DNAStringSet
 ```
 
-Export Fasta file
+Export Fasta file for providing to blast,
 
 ```{r}
 dir_create(here('output', '2022-05-12-blast'))
 query_fn <- here('output', '2022-05-12-blast', 'primers-and-probes.fasta')
 writeXStringSet(primers_dna, query_fn)
 ```
+
+# Blast against nt
+
+This was done on a cluster; see submit.sh.
+
+# Blast against each other
+
+This we can do locally,
+
+```sh
+makeblastdb -in primers-and-probes.fasta -parse_seqids -title primers-and-probes -dbtype nucl
+mkdir blastdb
+mv primers-and-probes.fasta.* blastdb
+# blast all against all
+n=$(nproc)
+blastn -db ./blastdb/primers-and-probes.fasta -query primers-and-probes.fasta \
+    -task blastn-short \
+    -num_threads $n \
+    -out all-against-all.tsv -outfmt '6 std qlen score'
+gzip all-against-all.tsv
+```
+
 
