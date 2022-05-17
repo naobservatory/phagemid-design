@@ -111,7 +111,7 @@ writeXStringSet(primers_dna, query_fn)
 
 This was done on a cluster; see submit.sh.
 
-# Blast against each other
+# Blast all against all
 
 This we can do locally,
 
@@ -126,6 +126,36 @@ blastn -db ./blastdb/primers-and-probes.fasta -query primers-and-probes.fasta \
     -num_threads $n \
     -out all-against-all.tsv -outfmt '6 std qlen score'
 gzip all-against-all.tsv
+```
+
+# Blast all against complete amplicon sequences
+
+This we can do locally as well; but first we need to create a fasta file with the complete amplicon sequences.
+
+```{r}
+amplicons_dna <- barcodes %>%
+  filter(purchased) %>%
+  select(assay_name, barcode) %>%
+  transmute(
+    sequence_id = str_glue('{assay_name}_amplicon'),
+    sequence = barcode
+  ) %>%
+  deframe %>%
+  DNAStringSet
+amplicons_fn <- here('output', '2022-05-12-blast', 'amplicons.fasta')
+writeXStringSet(amplicons_dna, amplicons_fn)
+```
+
+```sh
+makeblastdb -in amplicons.fasta -parse_seqids -title amplicons -dbtype nucl
+mv amplicons.fasta.* blastdb
+# run blast
+n=$(nproc)
+blastn -db ./blastdb/amplicons.fasta -query primers-and-probes.fasta \
+    -task blastn-short \
+    -num_threads $n \
+    -out all-against-amplicons.tsv -outfmt '6 std qlen score'
+gzip all-against-amplicons.tsv
 ```
 
 
