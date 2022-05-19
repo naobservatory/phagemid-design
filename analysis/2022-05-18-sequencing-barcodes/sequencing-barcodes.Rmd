@@ -1,0 +1,137 @@
+
+
+# Setup
+
+```{r}
+library(here)
+library(tidyverse)
+library(fs)
+library(googlesheets4)
+# library(speedyseq)
+# library(metacal)
+
+# library(cowplot)
+# theme_set(theme_cowplot())
+# library(patchwork)
+# library(ggbeeswarm)
+
+import::from(Biostrings, readDNAStringSet, DNAString, DNAStringSet,
+  writeXStringSet, reverseComplement)
+```
+
+Download the ONT barcodes from Google Sheets, and save in local repo (do once).
+
+```{r, eval = F}
+sheet_url <- 'https://docs.google.com/spreadsheets/d/1OLUgNzy3n6Gc0TSpBiqpHm6B2WPCaBOYvrJCqT2Iplo'
+ont_barcodes <- read_sheet(sheet_url, 'barcodes', 
+  col_names = c('id', 'sequence', 'blank', 'length')
+  ) %>%
+  glimpse
+ont_barcodes <- ont_barcodes %>%
+  select(id, sequence) %>%
+  mutate(length = nchar(sequence))
+write_csv(ont_barcodes, here('data/oxford-nanopore-barcodes.csv'))
+```
+
+Load ONT barcodes from local copy,
+
+```{r}
+ont_barcodes <- read_csv(here('data/oxford-nanopore-barcodes.csv'), 
+  col_types = 'cci') %>%
+  rename_with(~str_c('ont_barcode_', .)) %>%
+  glimpse
+stopifnot(all(ont_barcodes$ont_barcode_length == 24))
+```
+
+
+
+```{r}
+fns <- c(
+  'output/2022-05-02-barcode-primers/barcodes-postprocessed.csv',
+  'output/2022-05-05-barcode-primers/barcodes-postprocessed.csv'
+) %>%
+  here
+x <- tibble(set = 1:2, file = fns) %>%
+  mutate(
+    data = map(file, read_csv, col_types = 'cicicicici')
+  ) %>%
+  unnest(data) %>%
+  mutate(
+    primer_2_rc = map_chr(primer_2,
+      ~ DNAString(.x) %>% reverseComplement %>% as.character)
+  ) %>%
+  glimpse
+```
+
+
+# Generate candidate amplicons
+
+Choose a model set of primers, probe, and spacers,
+
+```{r}
+model <- x %>% slice(1) %>%
+  select(starts_with(c('primer', 'probe'))) %>%
+  mutate(
+    spacer_1 = 'TTTT',
+    spacer_2 = 'TTTT',
+    spacer_3 = 'TTTT',
+  ) %>%
+  glimpse
+```
+
+Form the cross with all ONT barcodes,
+(When assembling, remember to use the reverse complement of the reverse primer.)
+
+```{r}
+amplicons <- crossing(model, ont_barcodes) %>%
+  mutate(
+    amplicon = str_c(
+      primer_1, 
+      spacer_1, 
+      ont_barcode_sequence, 
+      spacer_2, 
+      probe,
+      spacer_3, 
+      primer_2_rc),
+    amplicon_length = nchar(amplicon)
+  )
+
+```
+
+
+```{r}
+amplicons %>% pull(amplicon) %>% head 
+#> [1] "CCGACACGTCTGTGAAATAAGCTTTTAAGAAAGTTGTCGGTGTCTTTGTGTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+#> [2] "CCGACACGTCTGTGAAATAAGCTTTTTCGATTCCGTTTGTAGTCGTCTGTTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+#> [3] "CCGACACGTCTGTGAAATAAGCTTTTGAGTCTTGTGTCCCAGTTACCAGGTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+#> [4] "CCGACACGTCTGTGAAATAAGCTTTTTTCGGATTCTATCGTGTTTCCCTATTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+#> [5] "CCGACACGTCTGTGAAATAAGCTTTTCTTGTCCAGGGTTTGTGTAACCTTTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+#> [6] "CCGACACGTCTGTGAAATAAGCTTTTTTCTCGCAAAGGCAGAAAGTAGTCTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+```
+
+To use the batch mode in IDT Analyzer (https://www.idtdna.com/calc/analyzer/home/batch), let's export a fasta file,
+
+```{r}
+
+```
+
+
+
+```{r}
+out_dir <- here('output', '2022-05-18-sequencing-barcodes')
+dir_create(out_dir)
+fn <- path(out_dir, 'candidate-amplicons.fasta')
+
+amplicons_dna <- amplicons %>%
+  transmute(
+    sequence_id = str_glue('{ont_barcode_id}_amplicon'),
+    sequence = amplicon
+  ) %>%
+  deframe %>%
+  DNAStringSet
+
+writeXStringSet(amplicons_dna, fn)
+```
+
+Note, the melting temps look higher when I use the 'qPCR' parameter set.
+Need to pay attention to what parameter set is used, and record this.
