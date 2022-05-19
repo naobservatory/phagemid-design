@@ -1,0 +1,248 @@
+
+```{r}
+library(here)
+library(tidyverse)
+library(ggridges)
+library(cowplot)
+
+library(furrr)
+plan('multicore', workers = 3) 
+```
+
+Generate the ids for the library,
+We have 96 total sequencing barcodes, and I will distribute these evenly over the 10 qPCR barcodes, so that qPCR ids 1:6 have 10 seq ids and qPCR ids 7:10 have 9 seq ids.
+
+```{r}
+barcodes <- crossing(qpcr_id = 1:10, seq_subid = 1:10) %>%
+  filter(!(seq_subid == 10 & qpcr_id >= 7)) %>%
+  mutate(
+    # across(ends_with('id'), as.character),
+    seq_id = str_glue('{qpcr_id}_{seq_subid}') %>% as.character,
+  ) %>%
+  glimpse
+```
+
+# Initial simulations
+
+## Testing
+
+Simulate picking colonies, then determine when we get $M$ distinct types
+
+```{r}
+set.seed(42)
+t_max <- 1e3
+M <- 50
+
+# Simulate picking t_max colonies
+sim <- slice_sample(barcodes, n = t_max, replace = TRUE)
+# Number of unique barcodes after picking each new colony,
+sim_uniq <- map_int(seq(t_max),
+  #> ~ sim$seq_id[seq(.x)] %>% unique(.) %>% length
+  ~ sim$seq_id %>% head(.x) %>% unique(.) %>% length
+)
+# Point when M barcodes were obtained
+which(sim_uniq == M)[1]
+```
+
+When did we get $m$ distinct types from each of the qpcr barcodes?
+
+```{r}
+# Comipute the min number of unique seq ids per qpcr id
+min_seq <- function(sim) {
+  sim %>%
+    with_groups(qpcr_id, summarize, num_seq_ids = unique(seq_id) %>% length) %>%
+    pull(num_seq_ids) %>% 
+    min
+}
+#> min_seq(sim %>% slice_head(n=100))
+
+# Min number of seq barcodes per individual qpcr barcode:
+sim_min_seq <- map_int(seq(t_max), 
+  ~ sim %>% head(n = .x) %>% min_seq
+)
+
+m <- 5
+which(sim_min_seq == m)[1]
+```
+
+
+It would be nice if we could speed up computing the min number of unique seq-ids per qpcr-id over the experiment.
+Perhaps we could do this if we kept a running tally of the uniques, rather than computing from scratch for each picked colony?
+
+```{r}
+```
+
+
+Simulate a multiple experiments and compute these two numbers for each,
+
+```{r}
+# compute the cumulative number of unique seq ids
+cum_uniq <- function(sim) {
+  map_int(seq(nrow(sim)), 
+    ~ sim$seq_id %>% head(.x) %>% unique(.) %>% length
+  )
+}
+
+# compute the cumulative number of min unique seq ids per qpcr id
+cum_min_seq <- function(sim) {
+  map_int(seq(nrow(sim)), 
+    ~ sim %>% head(n = .x) %>% min_seq
+  )
+}
+```
+
+
+```{r}
+set.seed(42)
+num_sims <- 6
+t_max <- 1e3
+M <- 50
+m <- 5
+
+sims <- tibble(.id = seq(num_sims)) %>%
+  mutate(
+    # Simulate picking t_max colonies
+    sim = map(.id, ~slice_sample(barcodes, n = t_max, replace = TRUE)),
+    # Compute the cumulative numbers of unique seq ids
+    sim_uniq = future_map(sim, cum_uniq),
+    # Compute the cumulative numers of min seq ids / qpcr id
+    sim_min_seq = future_map(sim, cum_min_seq)
+  )
+```
+
+```{r}
+sims %>%
+  mutate(
+    first_uniq = map_int(sim_uniq, ~which(. == M)[1]),
+    first_min_seq = map_int(sim_min_seq, ~which(. == m)[1]),
+  )
+```
+
+
+
+## Actual simulations
+
+For these, I think we can get away with a much smaller max colony number,
+
+```{r, eval = F}
+set.seed(42)
+num_sims <- 1000
+t_max <- 300
+M <- 50
+m <- 5
+
+sims <- tibble(.id = seq(num_sims)) %>%
+  mutate(
+    # Simulate picking t_max colonies
+    sim = map(.id, ~slice_sample(barcodes, n = t_max, replace = TRUE)),
+    # Compute the cumulative numbers of unique seq ids
+    sim_uniq = future_map(sim, cum_uniq),
+    # Compute the cumulative numers of min seq ids / qpcr id
+    sim_min_seq = future_map(sim, cum_min_seq)
+  )
+
+#> saveRDS(sims, 'simulations.Rds')
+```
+
+```{r}
+num_sims <- 1000
+t_max <- 300
+M <- 50
+m <- 5
+sims <- readRDS('simulations.Rds')
+```
+
+
+```{r}
+sims_first <- sims %>%
+  transmute(.id,
+    first_uniq = map_int(sim_uniq, ~which(. == M)[1]),
+    first_min_seq = map_int(sim_min_seq, ~which(. == m)[1]),
+  )
+# Check that the colony numbers are always less than t_max
+sims_first %>% summarize(across(starts_with('first'), max))
+```
+
+check the distributions,
+
+```{r}
+sims_first_long <- sims_first %>%
+  pivot_longer(-.id, names_to = 'criterion') %>%
+  mutate(across(criterion, fct_recode,
+    `50 total` = 'first_uniq',
+    `5 per qPCR id` = 'first_min_seq',
+    )
+  )
+```
+
+
+```{r}
+sims_first_long %>%
+  ggplot(aes(x = value, y = criterion, height = ..density..)) +
+  geom_density_ridges(
+    stat = 'density'
+    # jittered_points = TRUE
+  ) +
+  labs(
+    y = 'Criterion',
+    x = 'Number of colonies'
+  ) +
+  scale_x_continuous(expand = c(0, 0), breaks = c(50, 100, 150, 200)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  #> coord_cartesian(clip = 'off') +
+#> scale_x_continuous(expand = c(0, 0))+
+  expand_limits(x = c(50, 200)) +
+  theme_ridges()
+ggsave('/tmp/sims.png', width = 5, height = 3)
+```
+
+Can see that we need to pick many more colonies if we want at least 5 unique sequence ids for each qPCR id.
+
+
+next
+
+- [X] run 1000 sim
+- [X] save results
+- [X] create and save plot - fix jittering plot
+- [ ] create plot of cumulative distribution
+- [ ] compute num colonies w/ 90% chance of hitting condition
+- [ ] share results in twist
+<!--  -->
+
+```{r}
+sims_first_long %>%
+  ggplot(aes(x = value)) +
+  stat_ecdf(aes(color = criterion), size = 0.8) +
+  geom_hline(yintercept = 0.9, linetype = 'dashed') +
+  labs(
+    color = 'Criterion',
+    x = 'Number of colonies',
+    y = 'Probability'
+  ) +
+  scale_x_continuous(breaks = c(50, 100, 150, 200)) +
+  # scale_y_discrete(expand = c(0, 0)) +
+  expand_limits(x = c(50, 200)) +
+  theme_ridges() +
+  theme(legend.position = 'top') +
+  scale_color_brewer(type = 'qual')
+
+ggsave('/tmp/sims-ecdf.png', width = 5, height = 3)
+```
+
+```{r}
+p <- c(0.5, 0.8, 0.9, 0.95)
+sims_first_long %>%
+  with_groups(criterion, summarize, 
+    across(value, quantile, probs = p), probability = p
+  ) %>%
+  knitr::kable()
+
+```
+
+
+# Sub-pools
+
+
+What if we try the sub-pool idea?
+
+any intuition for why it would be better?
