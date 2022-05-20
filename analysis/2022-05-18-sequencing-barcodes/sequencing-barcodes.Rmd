@@ -33,16 +33,16 @@ ont_barcodes <- ont_barcodes %>%
 write_csv(ont_barcodes, here('data/oxford-nanopore-barcodes.csv'))
 ```
 
-Load ONT barcodes from local copy,
+Load ONT barcodes from local copy, dropping 'BC12A'.
 
 ```{r}
 ont_barcodes <- read_csv(here('data/oxford-nanopore-barcodes.csv'), 
   col_types = 'cci') %>%
   rename_with(~str_c('ont_barcode_', .)) %>%
+  filter(ont_barcode_id != 'BC12A') %>%
   glimpse
 stopifnot(all(ont_barcodes$ont_barcode_length == 24))
 ```
-
 
 
 ```{r}
@@ -51,7 +51,7 @@ fns <- c(
   'output/2022-05-05-barcode-primers/barcodes-postprocessed.csv'
 ) %>%
   here
-x <- tibble(set = 1:2, file = fns) %>%
+qpcr_barcodes <- tibble(set = 1:2, file = fns) %>%
   mutate(
     data = map(file, read_csv, col_types = 'cicicicici')
   ) %>%
@@ -63,18 +63,21 @@ x <- tibble(set = 1:2, file = fns) %>%
   glimpse
 ```
 
-
 # Generate candidate amplicons
 
 Choose a model set of primers, probe, and spacers,
+We'll use Set 1 Replicate 9 based on its good R2 and 98% efficiency.
+I'll pull spacers 2 and 3 from it as well, to maintain the same context around the probe.
+Spacer 1 is just a random 4 base string with 50% GC.
 
 ```{r}
-model <- x %>% slice(1) %>%
+model <- qpcr_barcodes %>%
+  filter(set == 1, replicate == 9) %>%
   select(starts_with(c('primer', 'probe'))) %>%
   mutate(
-    spacer_1 = 'TTTT',
-    spacer_2 = 'TTTT',
-    spacer_3 = 'TTTT',
+    spacer_1 = 'AGTC',
+    spacer_2 = 'TGAC',
+    spacer_3 = 'TCTA',
   ) %>%
   glimpse
 ```
@@ -83,7 +86,7 @@ Form the cross with all ONT barcodes,
 (When assembling, remember to use the reverse complement of the reverse primer.)
 
 ```{r}
-amplicons <- crossing(model, ont_barcodes) %>%
+seq_barcodes <- crossing(model, ont_barcodes) %>%
   mutate(
     amplicon = str_c(
       primer_1, 
@@ -95,26 +98,17 @@ amplicons <- crossing(model, ont_barcodes) %>%
       primer_2_rc),
     amplicon_length = nchar(amplicon)
   )
-
 ```
 
 
 ```{r}
-amplicons %>% pull(amplicon) %>% head 
-#> [1] "CCGACACGTCTGTGAAATAAGCTTTTAAGAAAGTTGTCGGTGTCTTTGTGTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
-#> [2] "CCGACACGTCTGTGAAATAAGCTTTTTCGATTCCGTTTGTAGTCGTCTGTTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
-#> [3] "CCGACACGTCTGTGAAATAAGCTTTTGAGTCTTGTGTCCCAGTTACCAGGTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
-#> [4] "CCGACACGTCTGTGAAATAAGCTTTTTTCGGATTCTATCGTGTTTCCCTATTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
-#> [5] "CCGACACGTCTGTGAAATAAGCTTTTCTTGTCCAGGGTTTGTGTAACCTTTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
-#> [6] "CCGACACGTCTGTGAAATAAGCTTTTTTCTCGCAAAGGCAGAAAGTAGTCTTTTATTACCAGGTCTTGGCCGGCGTTCTTTTCCTTTTAAGACCAGTGCTGGTAAGGATCT"
+seq_barcodes %>% pull(amplicon) %>% head 
 ```
 
 To use the batch mode in IDT Analyzer (https://www.idtdna.com/calc/analyzer/home/batch), let's export a fasta file,
 
 ```{r}
-
 ```
-
 
 
 ```{r}
@@ -122,7 +116,7 @@ out_dir <- here('output', '2022-05-18-sequencing-barcodes')
 dir_create(out_dir)
 fn <- path(out_dir, 'candidate-amplicons.fasta')
 
-amplicons_dna <- amplicons %>%
+amplicons_dna <- seq_barcodes %>%
   transmute(
     sequence_id = str_glue('{ont_barcode_id}_amplicon'),
     sequence = amplicon
@@ -135,3 +129,123 @@ writeXStringSet(amplicons_dna, fn)
 
 Note, the melting temps look higher when I use the 'qPCR' parameter set.
 Need to pay attention to what parameter set is used, and record this.
+
+
+# Full tag sequences
+
+Full tracer tag:
+[Gibson overhang 1] - NNNN - [qPCR barcode] - [10 or 20 bp spacer] - [Sequencing Barcode] - NNNN - [Gibson overhang 2]
+
+
+qPCR barcodes from set 2; pick the 5 with the lowest efficiency, and good R2:
+
+7
+19
+10
+4
+18
+
+```{r}
+reps <- c(7, 19, 10, 4, 18)
+qpcr_barcodes_picked <- qpcr_barcodes %>%
+  filter(set == 2, replicate %in% reps)
+```
+
+```{r}
+rc <- function(s) {
+  s %>% DNAString %>% reverseComplement %>% as.character
+}
+```
+
+
+5’ end: tctcattttcgccaaaagttgg (61C melt temp, 40.91% G/C)
+3’ end: ctaggagggtcagccgttaag (62C melt temp, 58% G/C)
+
+
+```{r}
+set.seed(46)
+l <- c('A', 'C', 'G', 'T')
+spacers <- list(
+  overhang_1 = 'tctcattttcgccaaaagttgg' %>% toupper,
+  overhang_2 = 'ctaggagggtcagccgttaag' %>% toupper,
+  tag_spacer_1 = sample(l, size = 4, replace = TRUE),
+  tag_spacer_2 = sample(l, size = 10, replace = TRUE),
+  tag_spacer_3 = sample(l, size = 4, replace = TRUE)
+) %>%
+  map_chr(str_c, collapse='') %>%
+  print
+tags_spacers <- spacers %>%
+  enframe() %>%
+  pivot_wider() %>%
+  mutate(
+    overhang_2_rc = rc(overhang_2),
+  )
+```
+
+```{r}
+tags_qpcr <- qpcr_barcodes_picked %>%
+  transmute(
+    qpcr_barcode = barcode,
+    qpcr_barcode_set = set,
+    qpcr_barcode_replicate = replicate,
+    qpcr_barcode_replicate_string = formatC(qpcr_barcode_replicate, width = 3, flag = "0"),
+    qpcr_barcode_idx = row_number(),
+  )
+tags_seq <- seq_barcodes %>%
+  transmute(
+    seq_barcode = amplicon, 
+    ont_barcode_id, 
+    seq_barcode_idx = row_number(),
+    #> here - how to pair up specific seq barcodes with specific qpcr barcodes?
+    qpcr_barcode_idx = rep_len(1:5, length.out = 96)
+  )
+```
+
+
+```{r}
+```
+
+names:
+
+`T1_QS2_###_BC##`
+
+
+T1 = Tag Set 1
+QS2 = qPCR barcode set 2
+BC = ON barcode
+
+
+```{r}
+tags <- tags_seq %>%
+  left_join(tags_qpcr, by = 'qpcr_barcode_idx') %>%
+  crossing(tags_spacers) %>%
+  mutate(
+    tag_sequence = str_c(
+      overhang_1,
+      tag_spacer_1, 
+      qpcr_barcode,
+      tag_spacer_2, 
+      seq_barcode,
+      tag_spacer_3,
+      overhang_2 # NOTE: Don't reverse complement
+      ),
+    tag_length = nchar(tag_sequence),
+    tag_name = str_glue(
+      'T1_QS{qpcr_barcode_set}_{qpcr_barcode_replicate_string}_{ont_barcode_id}'
+    )
+  )
+tags$tag_length %>% summary
+```
+
+
+```{r}
+write_csv(tags, 'tags.csv')
+
+tags_dna <- tags %>%
+  select(tag_name, tag_sequence) %>%
+  deframe %>%
+  DNAStringSet
+
+writeXStringSet(tags_dna, 'tags.fasta')
+```
+

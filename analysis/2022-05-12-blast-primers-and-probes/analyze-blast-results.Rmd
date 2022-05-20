@@ -1,0 +1,293 @@
+
+# Setup
+
+```{r}
+library(here)
+library(tidyverse)
+library(fs)
+# library(googlesheets4)
+# library(speedyseq)
+# library(metacal)
+
+# library(cowplot)
+# theme_set(theme_cowplot())
+# library(patchwork)
+# library(ggbeeswarm)
+
+import::from(Biostrings, readDNAStringSet, DNAString, DNAStringSet,
+  writeXStringSet, reverseComplement)
+```
+
+
+```{r}
+fn <- here('output', '2022-05-12-blast', 'results-2.tsv.gz')
+col_names <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
+  "qstart", "qend", "sstart", "send", "evalue", "bitscore", 
+  "qlen", "score", "staxid")
+col_types <- "ccdiiiiiiiddidc"
+
+x <- read_tsv(fn, col_names = col_names, col_types = col_types) %>% glimpse
+```
+
+Add the query sequence and check that the lengths in the blast results table are correct,
+
+```{r}
+query_fn <- here('output', '2022-05-12-blast', 'primers-and-probes.fasta')
+dna <- readDNAStringSet(query_fn)
+dna_tbl <- dna %>%
+  as.character %>%
+  enframe('qseqid', 'sequence') %>%
+  mutate(qlen = nchar(sequence))
+```
+
+```{r}
+x <- x %>%
+  left_join(dna_tbl, by = 'qseqid')
+stopifnot(all.equal(x$qlen.x, x$qlen.y))
+x <- x %>%
+  rename(qlen = qlen.x) %>%
+  select(-qlen.y)
+```
+
+Add the taxonomy information - 
+
+```{r}
+# Can only do 10 requests / second
+# taxize::getkey(service="entrez")
+ids <- x$staxid %>% unique
+
+#> tax <- taxize::id2name(ids[1:10], db = 'ncbi')
+#> tax <- taxize::ncbi_get_taxon_summary(ids[1:10])
+#> tax <- taxize::classification(ids[1:10], db = 'ncbi')
+
+tax_classification <- taxize::classification(ids, db = 'ncbi')
+# subject to standard ranks and merge into one dataframe
+rnks <- c('superkingdom', 'kingdom', 'phylum', 'class', 'order', 'family',
+  'genus', 'species')
+tax_long <- tax_classification %>%
+  map_dfr(filter, rank %in% rnks, .id = 'staxid')
+# Get one row per taxid
+tax <- tax_long %>%
+  select(staxid, name, rank) %>%
+  pivot_wider(names_from = rank, values_from = name)
+```
+
+```{r}
+x <- x %>%
+  left_join(tax, by = 'staxid')
+```
+
+What fraction of primers and probes have any hits?
+
+```{r}
+dna_tbl %>%
+  count(qseqid %in% x$qseqid) 
+```
+
+
+# Do stuff
+
+Some things we need to do
+
+1. Filter to sufficiently good matches; in particular, we only care about cases where all or most of the length of the query matches decently
+2. Find the taxonomy of the matches. I think there is a way for to add those in using the blast command line tool, or can use the sseqid and the downlaoded tax file.
+
+
+Next time, I might want to include the query length (qlen) and subject tax info (staxids sscinames	scomnames	sblastnames sskingdoms) in the output.
+
+However, I can still get all of this after the fact.
+
+
+I might also want to output the raw score (score), since this is what is used by barCoder.
+
+
+Compute a normalized score as in the barCoder tool, equal to the raw score divided by the query length,
+
+```{r}
+x1 <- x %>%
+  mutate(
+    score_norm = score / qlen
+  )
+```
+
+```{r}
+x1 %>% pull(score_norm) %>% summary
+```
+
+Note, all are greater than 0.65.
+Perhaps that was the min that is reported, period?
+
+
+Question - how to narrow down to ones that are problematic?
+
+
+Perhaps better to just use primer blast, since that is more conservative in what it flags as a problem.
+
+
+Remove redundancy - just get the best hit for a given primer + subject organism.
+
+```{r}
+x2 <- x1 %>%
+  with_groups(c(qseqid, staxid), slice_max, bitscore, n = 1, with_ties = FALSE)
+x3 <- x2 %>%
+  select(qseqid, score_norm, superkingdom:species)
+```
+
+
+
+
+Perhaps we should just flag those that hit problematic organisms?
+
+Example: Human
+
+```{r}
+x3 %>%
+  filter(species == 'Homo sapiens') %>%
+  select(qseqid, score_norm)
+```
+
+
+Example: Bacteria
+
+```{r}
+x3 %>%
+  filter(superkingdom == 'Bacteria') %>%
+  select(qseqid, score_norm, phylum, genus)
+```
+
+Viruses
+
+```{r}
+x3 %>%
+  filter(superkingdom == 'Viruses') %>%
+  select(qseqid, score_norm, phylum, family)
+```
+
+Siphoviridae - infect bacteria and archaea (phage)
+Circoviridae - infect birds and mammals
+
+
+## Let's see if we can confirm the Primer-BLAST results
+
+Check for cases where we are predicted to have an amplicon - need two hits on the same subject sequence, < 4k bp apart, and with the correct orientation.
+
+
+By just checking for the Primer-BLAST organisms in the blast results, can see that some don't show up, for example the genus Ectemnius is in the PrimerBlast results but not my blast results.
+
+
+```{r}
+'Ectemnius' %in% x1$genus
+```
+
+
+## Check the probe sequences
+
+We might want to be more careful with the probes, since offtarget florescence could create a lot of background, and doesn't require formation of an amplicon.
+
+
+```{r}
+x1 %>%
+  filter(str_detect(qseqid, 'probe')) %>%
+  filter(genus == 'Homo') %>%
+  nrow
+```
+
+
+##  Check final ones
+
+```{r}
+a <- x3 %>%
+  filter(str_detect(qseqid, 'qpcr_backbone_s1_009'))
+```
+
+this seems ok!
+j
+
+
+others:
+
+```{r}
+reps <- c(7, 19, 10, 4, 18)
+
+x3 %>% filter(str_detect(qseqid, 'qpcr_backbone_s2_007'))
+x3 %>% filter(str_detect(qseqid, 'qpcr_backbone_s2_019'))
+x3 %>% filter(str_detect(qseqid, 'qpcr_backbone_s2_010'))
+x3 %>% filter(str_detect(qseqid, 'qpcr_backbone_s2_004'))
+x3 %>% filter(str_detect(qseqid, 'qpcr_backbone_s2_018'))
+```
+
+seems ok
+
+
+# Check all-against-all results
+
+The barCoder tool should already have ensured no matches within each set; but I didn't configure it to ensure no matches between the two sets.
+So let's quickly check there are none.
+
+```{r}
+fn <- here('output', '2022-05-12-blast', 'all-against-all.tsv.gz')
+col_names <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
+  "qstart", "qend", "sstart", "send", "evalue", "bitscore", 
+  "qlen", "score")
+col_types <- "ccdiiiiiiiddid"
+
+y <- read_tsv(fn, col_names = col_names, col_types = col_types) %>%
+  mutate(
+    score_norm = score / qlen
+  ) %>%
+  glimpse
+```
+
+Ideally, only cases where the normalized score is above 0.65 are the sequence against itself.
+
+```{r}
+y$score_norm %>% qplot
+```
+
+A histogram shows a clearly bimodal distribution, with a peak at the max possible score (perfect identity) and the rest below 0.5.
+
+```{r}
+y %>%
+  filter(qseqid != sseqid) %>%
+  pull(score_norm) %>%
+  summary
+```
+
+So, all good!
+
+## All against amplicons
+
+Update: We should also check that the primers and probes don't match the entire barcodes (except from which they came).
+
+```{r}
+fn <- here('output', '2022-05-12-blast', 'all-against-amplicons.tsv.gz')
+col_names <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen",
+  "qstart", "qend", "sstart", "send", "evalue", "bitscore", 
+  "qlen", "score")
+col_types <- "ccdiiiiiiiddid"
+
+z <- read_tsv(fn, col_names = col_names, col_types = col_types) %>%
+  mutate(
+    score_norm = score / qlen
+  ) %>%
+  glimpse
+```
+
+```{r}
+z$score_norm %>% qplot
+```
+
+Again, a histogram shows a clearly bimodal distribution, with a peak at the max possible score (perfect identity) and the rest below 0.5.
+Verify:
+
+```{r}
+z %>%
+  mutate(
+    across(ends_with('seqid'), str_extract, 'qpcr_backbone_s[1-2]_[^_]+',
+    .names = '{.col}_assay')
+  ) %>%
+  filter(qseqid_assay != sseqid_assay) %>%
+  pull(score_norm) %>%
+  summary
+```
+
