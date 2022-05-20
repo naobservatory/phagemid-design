@@ -249,3 +249,110 @@ tags_dna <- tags %>%
 writeXStringSet(tags_dna, 'tags.fasta')
 ```
 
+# eblock test template
+
+```{r}
+
+```
+
+Ah ok, I think I understand - you . Let me programmatically confirm the sequences in your excel file are identical to the oligo seq’s except for this insertion, should take <10m
+
+The eBlock's need to be >= 300bp. To reach this length, AG inserted GTCA after CCAT (the first tag spacer).
+
+Let's confirm that the sequences that AG created and shared are identical to what I get if I insert this additional sequence.
+
+The seq's AG created:
+
+```{r}
+eblocks_ag <- readxl::read_excel('eblock-test-template.xlsx')
+eblocks_ag%>%
+  filter(!is.na(...12)) %>%
+  glimpse
+eblocks_ag <- eblocks_ag %>%
+  select(1:3) %>%
+  janitor::clean_names() %>%
+  mutate(length = nchar(sequence))
+eblocks_ag_dna <- eblocks_ag %>%
+  select(name, sequence) %>%
+  deframe %>%
+  DNAStringSet
+```
+
+My version:
+
+```{r}
+eblocks_mm <- tags %>%
+  mutate(
+    tag_spacer_1_eblock = str_c(tag_spacer_1, 'GTCA'),
+    tag_sequence = str_c(
+      overhang_1,
+      tag_spacer_1_eblock, 
+      qpcr_barcode,
+      tag_spacer_2, 
+      seq_barcode,
+      tag_spacer_3,
+      overhang_2 # NOTE: Don't reverse complement
+      ),
+    tag_length = nchar(tag_sequence),
+  )
+eblocks_mm$tag_length %>% summary
+eblocks_mm_dna <- eblocks_mm %>%
+  select(tag_name, tag_sequence) %>%
+  deframe %>%
+  DNAStringSet
+```
+
+Confirm that the order is the same,
+
+```{r}
+stopifnot(all.equal(eblocks_ag_dna %>% names, eblocks_mm_dna %>% names))
+```
+
+Check for differences,
+
+```{r}
+all.equal(eblocks_ag_dna %>% as.character, eblocks_mm_dna %>% as.character)
+eblocks_ag_dna[eblocks_ag_dna != eblocks_mm_dna] %>% names
+```
+
+Differences in 13 sequences, need to check these.
+
+```{r, eval = F}
+a <- eblocks_ag_dna['T1_QS2_018_BC14']
+b <- eblocks_mm_dna['T1_QS2_018_BC14']
+names(a) <- str_c(names(a), '_ag')
+names(b) <- str_c(names(b), '_mm')
+x <- c(a,b)
+x_aligned <- DECIPHER::AlignSeqs(x)
+DECIPHER::BrowseSeqs(x_aligned, highlight=0)
+```
+
+Looks like AG accidentally added extra GTCA's, possibly after every CCAT instead of just the first one.
+
+Can check that the differences in the seq's are alwaya 4bp*X too long; or that only the sequences with extra CCAT's are the issue.
+
+## Additional check
+
+```{r}
+a <- str_c(
+  str_sub(tags$tag_sequence, 1, 26),
+  'GTCA',
+  str_sub(tags$tag_sequence, 27)
+)
+b <- eblocks_mm %>% pull(tag_sequence)
+identical(a,b)
+#> [1] TRUE
+```
+
+## Save the correct sequences
+
+```{r}
+stopifnot(identical(eblocks_ag$name, eblocks_mm$tag_name %>% as.character))
+eblocks <- eblocks_mm %>%
+  add_column(well_position = eblocks_ag$well_position) %>%
+  select(well_position, name = tag_name, sequence = tag_sequence)
+write_csv(eblocks, '2022-05-20-eblock-template-mm.csv')
+```
+
+
+
