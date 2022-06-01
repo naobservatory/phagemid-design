@@ -1,0 +1,169 @@
+
+
+This file re-runs the colony picking simulation with our new phagemid barcode design, in wich we have 5 qPCR barcodes, each receiving ~20 sequencing barcodes (96 total), and are aiming to get 5X5.
+
+```{r}
+library(here)
+library(tidyverse)
+library(ggridges)
+library(cowplot)
+
+library(furrr)
+plan('multicore', workers = 3) 
+```
+
+Generate the ids for the library,
+We have 96 total sequencing barcodes, and I will distribute these evenly over the 5 qPCR barcodes, so that qPCR id 1 has 20 seq ids and qPCR id 2:5 have 19 seq ids.
+
+```{r}
+barcodes <- crossing(qpcr_id = 1:5, seq_subid = 1:20) %>%
+  filter(!(seq_subid == 10 & qpcr_id >= 2)) %>%
+  mutate(
+    # across(ends_with('id'), as.character),
+    seq_id = str_glue('{qpcr_id}_{seq_subid}') %>% as.character,
+  ) %>%
+  glimpse
+```
+
+# Functions
+
+```{r}
+# Comipute the min number of unique seq ids per qpcr id
+min_seq <- function(sim) {
+  sim %>%
+    with_groups(qpcr_id, summarize, num_seq_ids = unique(seq_id) %>% length) %>%
+    pull(num_seq_ids) %>% 
+    min
+}
+#> min_seq(sim %>% slice_head(n=100))
+
+# compute the cumulative number of unique seq ids
+cum_uniq <- function(sim) {
+  map_int(seq(nrow(sim)), 
+    ~ sim$seq_id %>% head(.x) %>% unique(.) %>% length
+  )
+}
+
+# compute the cumulative number of min unique seq ids per qpcr id
+cum_min_seq <- function(sim) {
+  map_int(seq(nrow(sim)), 
+    ~ sim %>% head(n = .x) %>% min_seq
+  )
+}
+```
+
+## Actual simulations
+
+For these, I think we can get away with a much smaller max colony number,
+
+```{r, eval = F}
+set.seed(42)
+num_sims <- 500
+t_max <- 200
+
+sims <- tibble(.id = seq(num_sims)) %>%
+  mutate(
+    # Simulate picking t_max colonies
+    sim = map(.id, ~slice_sample(barcodes, n = t_max, replace = TRUE)),
+    # Compute the cumulative numbers of unique seq ids
+    sim_uniq = future_map(sim, cum_uniq),
+    # Compute the cumulative numers of min seq ids / qpcr id
+    sim_min_seq = future_map(sim, cum_min_seq)
+  )
+
+saveRDS(sims, '2022-06-01-simulations.Rds')
+#> sims <- readRDS('simulations.Rds')
+```
+
+
+```{r}
+# Number of unique seq barcodes (condition 1)
+M <- 25
+# Number of unique seq barcodes / qpcr barcode (condition 2)
+m <- 5
+
+sims_first <- sims %>%
+  transmute(.id,
+    first_uniq = map_int(sim_uniq, ~which(. == M)[1]),
+    first_min_seq = map_int(sim_min_seq, ~which(. == m)[1]),
+  )
+# Check that the colony numbers are always less than t_max
+sims_first %>% summarize(across(starts_with('first'), max))
+```
+
+check the distributions,
+
+```{r}
+sims_first_long <- sims_first %>%
+  pivot_longer(-.id, names_to = 'criterion') %>%
+  mutate(across(criterion, fct_recode,
+    `25 total` = 'first_uniq',
+    `5 per qPCR id` = 'first_min_seq',
+    )
+  )
+```
+
+
+```{r}
+sims_first_long %>%
+  ggplot(aes(x = value, y = criterion, height = ..density..)) +
+  geom_density_ridges(
+    stat = 'density'
+    # jittered_points = TRUE
+  ) +
+  labs(
+    y = 'Criterion',
+    x = 'Number of colonies'
+  ) +
+  scale_x_continuous(expand = c(0, 0), breaks = c(50, 100, 150, 200)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  #> coord_cartesian(clip = 'off') +
+#> scale_x_continuous(expand = c(0, 0))+
+  expand_limits(x = c(50, 200)) +
+  theme_ridges()
+ggsave('/tmp/sims.png', width = 5, height = 3)
+```
+
+Can see that we need to pick many more colonies if we want at least 5 unique sequence ids for each qPCR id.
+
+
+```{r}
+sims_first_long %>%
+  ggplot(aes(x = value)) +
+  stat_ecdf(aes(color = criterion), size = 0.8) +
+  geom_hline(yintercept = 0.9, linetype = 'dashed') +
+  labs(
+    color = 'Criterion',
+    x = 'Number of colonies',
+    y = 'Probability'
+  ) +
+  scale_x_continuous(breaks = c(50, 100, 150, 200)) +
+  # scale_y_discrete(expand = c(0, 0)) +
+  expand_limits(x = c(50, 200)) +
+  theme_ridges() +
+  theme(legend.position = 'top') +
+  scale_color_brewer(type = 'qual')
+
+ggsave('/tmp/sims-ecdf.png', width = 5, height = 3)
+```
+
+```{r}
+p <- c(0.5, 0.8, 0.9, 0.95)
+sims_first_long %>%
+  with_groups(criterion, summarize, 
+    across(value, quantile, probs = p), probability = p
+  ) %>%
+  knitr::kable()
+
+```
+
+|criterion     | value| probability|
+|:-------------|-----:|-----------:|
+|5 per qPCR id |  42.0|        0.50|
+|5 per qPCR id |  50.2|        0.80|
+|5 per qPCR id |  55.0|        0.90|
+|5 per qPCR id |  60.0|        0.95|
+|25 total      |  29.0|        0.50|
+|25 total      |  30.0|        0.80|
+|25 total      |  32.0|        0.90|
+|25 total      |  33.0|        0.95|
