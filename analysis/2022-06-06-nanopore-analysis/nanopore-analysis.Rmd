@@ -1,0 +1,399 @@
+
+Analyze nanopore data to see which phagemid lines are monoclonal
+
+
+```{r}
+library(tidyverse)
+library(here)
+library(fs)
+library(furrr)
+plan(multicore, workers = 3)
+import::from(Biostrings, complement, reverseComplement, width, DNAString,
+  DNAStringSet, readDNAStringSet, subseq,
+  vmatchPDict, vcountPDict
+)
+import::from(DECIPHER, TrimDNA, AlignSeqs, OrientNucleotides, BrowseSeqs)
+
+```
+
+```{r}
+seq_barcodes <- here('output', '2022-05-18-sequencing-barcodes',
+  'sequencing-barcodes.csv') %>%
+  read_csv %>%
+  glimpse
+```
+
+Forward and reverse primers for the sequencing barcodes
+
+```{r}
+fwd <- seq_barcodes %>% pull(primer_1) %>% unique
+rev <- seq_barcodes %>% pull(primer_2) %>% unique
+rev_rc <- rev %>% DNAString %>% reverseComplement %>% as.character
+stopifnot(identical(length(fwd), 1L))
+stopifnot(identical(length(rev), 1L))
+```
+
+
+## load the nanopore reads
+
+For each folder, read in all the reads into a single DNAStringSet.
+
+```{r, eval = F}
+dirs <- here('data', '220603anj_pass') %>%
+  dir_ls
+x <- tibble(dir = dirs) %>%
+  mutate(
+    seq_index = path_file(dir),
+    files = map(dir, dir_ls, glob = '*.fastq')
+  ) %>%
+  unnest(files) %>%
+  mutate(
+    dna = map(files, readDNAStringSet, format = 'fastq')
+  )
+```
+
+
+```{r, eval = F}
+y <- dirs[[1]] %>% dir_ls(glob = '*.fastq') %>% readDNAStringSet(format = 'fastq')
+```
+
+
+```{r}
+dirs <- here('data', '220603anj_pass') %>%
+  dir_ls
+x <- tibble(dir = dirs) %>%
+  mutate(
+    seq_index = path_file(dir),
+    files = map(dir, dir_ls, glob = '*.fastq')
+  ) %>%
+  mutate(
+    dna = map(files, readDNAStringSet, format = 'fastq')
+  )
+```
+
+## Trim by primer seq
+
+```{r}
+y <- x$dna[[1]]
+y1 <- TrimDNA(y, fwd, rev, type = 'sequences')
+y2 <- TrimDNA(y, fwd, rev_rc, type = 'sequences')
+width(y) %>% summary
+width(y1) %>% summary
+width(y2) %>% summary
+```
+
+y2 is the right one (need to RC).
+But note that some of these might still work, if we did the reverse complement.
+
+
+```{r}
+y2_filt  <-  y2[width(y2) < 100]
+```
+
+```{r}
+y_orient <- OrientNucleotides(y)
+y3 <- TrimDNA(y_orient, fwd, rev_rc, type = 'sequences')
+y4 <- TrimDNA(y_orient %>% reverseComplement, fwd, rev_rc, type = 'sequences')
+y4_filt  <-  y4[width(y4) < 100]
+```
+
+Ok, this is better!
+
+```{r}
+y4_filt_aln <- AlignSeqs(y4_filt)
+BrowseSeqs(y4_filt_aln)
+```
+
+Having a hard time knowing how to read this, however.
+
+
+## Check for expected barcodes
+
+```{r}
+ont_barcodes <- seq_barcodes %>% 
+  select(ont_barcode_id, ont_barcode_sequence) %>%
+  deframe %>%
+  DNAStringSet
+```
+
+
+```{r}
+#> vmatchPDict(y_orient)
+cnts <- vcountPDict(
+  ont_barcodes,
+  y_orient %>% reverseComplement, 
+  with.indels = TRUE, max.mismatch = 4)
+#> cnts <- vcountPDict(y_orient, ont_barcodes)
+#> sum(cnts)
+rownames(cnts) <- ont_barcodes %>% names
+apply(cnts, 1, sum) %>%
+  {.[. > 0.01 * sum(.)]}
+```
+
+Huzzah! This seems to be working, though can probably design it to be more robust.
+Can see that in this case, we appear to have a mix of two barcodes.
+
+Next is to wrap this in a function, and run it on each sequencing library.
+
+I also need a way to orient the sequences in a known orientation.
+Or can try running in both orientations, as a quick workaround
+
+
+```{r}
+#> orient the seqs; also get rc
+#> don't use unclassified to speed things up
+x1 <- x %>%
+  filter(seq_index != 'unclassified') %>%
+  mutate(
+    dna_orient = future_map(dna, OrientNucleotides),
+    dna_orient_rc = map(dna_orient, reverseComplement),
+  )
+#> now, do the matching on both
+x2 <- x1 %>%
+  mutate(
+    counts = future_map(dna_orient, 
+      ~vcountPDict(ont_barcodes, .x, with.indels = TRUE, max.mismatch = 4)),
+    counts_rc = future_map(dna_orient_rc, 
+      ~vcountPDict(ont_barcodes, .x, with.indels = TRUE, max.mismatch = 4)),
+  )
+saveRDS(x2, 'barcode-counts.Rds')
+```
+
+Note, for future might want to look into why so many unclassified.
+
+
+```{r}
+x3 <- x2 %>%
+  select(seq_index, counts, counts_rc) %>%
+  mutate(
+    across(starts_with('counts'), map, rowSums),
+    across(starts_with('counts'), map, set_names, names(ont_barcodes)),
+    across(counts, map, enframe, name = 'ont_barcode', value = 'count'),
+    across(counts_rc, map, enframe, name = 'ont_barcode', value = 'count_rc')
+  ) %>%
+  unnest(counts, counts_rc) %>%
+  select(-ont_barcode1)
+```
+
+Are barcodes 1 and 2 reverse complements of each other?
+
+```{r}
+ont_barcodes[[1]]
+ont_barcodes[[2]] %>% reverseComplement
+```
+
+What's the story with A1:000?
+
+```{r}
+x3 %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count > 10)
+x3 %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count_rc > 10)
+```
+
+What's the story with A2:008?
+
+```{r}
+x3 %>%
+  filter(seq_index == 'bw_008') %>%
+  filter(count > 10)
+x3 %>%
+  filter(seq_index == 'bw_008') %>%
+  filter(count_rc > 10)
+```
+
+These results are strange...I wonder if a max mismatch of 4 is too great?
+Should try again with stricter limits.
+
+
+
+```{r}
+x2_strict <- x1 %>%
+  mutate(
+    counts = future_map(dna_orient, 
+      ~vcountPDict(ont_barcodes, .x, with.indels = TRUE, max.mismatch = 2)),
+    counts_rc = future_map(dna_orient_rc, 
+      ~vcountPDict(ont_barcodes, .x, with.indels = TRUE, max.mismatch = 2)),
+  )
+saveRDS(x2_strict, 'barcode-counts-strict.Rds')
+
+x3_strict <- x2_strict %>%
+  select(seq_index, counts, counts_rc) %>%
+  mutate(
+    across(starts_with('counts'), map, rowSums),
+    across(starts_with('counts'), map, set_names, names(ont_barcodes)),
+    across(counts, map, enframe, name = 'ont_barcode', value = 'count'),
+    across(counts_rc, map, enframe, name = 'ont_barcode', value = 'count_rc')
+  ) %>%
+  unnest(counts, counts_rc) %>%
+  select(-ont_barcode1)
+```
+
+What's the story with A1:000 when stricter?
+
+```{r}
+x3_strict %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count > 10)
+x3_strict %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count_rc > 10)
+```
+
+See the same result.
+
+Try again including flanking sequence so as to make sure not matching the barcodes used for indexing.
+
+
+```{r}
+pats <- seq_barcodes %>% 
+  mutate(
+    pattern = str_c(
+      ont_barcode_sequence, 
+      spacer_2, 
+      probe),
+  ) %>%
+  select(ont_barcode_id, pattern) %>%
+  deframe %>%
+  DNAStringSet
+```
+
+
+
+```{r}
+x2_stricter <- x1 %>%
+  mutate(
+    counts = future_map(dna_orient, 
+      ~vcountPDict(pats, .x, with.indels = TRUE, max.mismatch = 2)),
+    counts_rc = future_map(dna_orient_rc, 
+      ~vcountPDict(pats, .x, with.indels = TRUE, max.mismatch = 2)),
+  )
+saveRDS(x2_stricter, 'barcode-counts-stricter.Rds')
+
+x3_stricter <- x2_stricter %>%
+  select(seq_index, counts, counts_rc) %>%
+  mutate(
+    across(starts_with('counts'), map, rowSums),
+    across(starts_with('counts'), map, set_names, names(ont_barcodes)),
+    across(counts, map, enframe, name = 'ont_barcode', value = 'count'),
+    across(counts_rc, map, enframe, name = 'ont_barcode', value = 'count_rc')
+  ) %>%
+  unnest(counts, counts_rc) %>%
+  select(-ont_barcode1)
+```
+
+What's the story with A1:000 when even stricter?
+
+```{r}
+x3_stricter %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count > 10)
+x3_stricter %>%
+  filter(seq_index == 'bw_000') %>%
+  filter(count_rc > 10)
+```
+
+OK!!! Now we're only getting none and 1 hit.
+
+Check overall:
+
+```{r}
+a <- x3_stricter %>%
+  filter(count > 10 | count_rc > 10)
+```
+
+Inspecting this, it looks like we're seeing roughly what we expect - in most cases, just one quant barcode, in some cases two or 3.
+
+
+Can we confirm against the Sanger results?
+
+
+Check A2:008?
+
+```{r}
+x3_stricter %>%
+  filter(seq_index == 'bw_008') %>%
+  filter(count > 10)
+x3_stricter%>%
+  filter(seq_index == 'bw_008') %>%
+  filter(count_rc > 10)
+```
+
+B1: 001
+
+```{r}
+x3_stricter %>%
+  filter(seq_index == 'bw_001') %>%
+  filter(count > 10)
+x3_stricter%>%
+  filter(seq_index == 'bw_001') %>%
+  filter(count_rc > 10)
+```
+
+Ok, so the three that Anjali and Brian picked look good.
+
+# Improved pipeline - Combo approach
+
+First trim by primers (try both orientations and pick best), then match.
+
+#. Combine all sequences into a single DNAStringSet
+#. Give a common orientation
+#. check that this is the correct oreitnation for the quant barcodes; if not, RC it.
+#. Trim using the primers
+#. Do some QC - check stats of matches; check that see the spacer and probe sequences
+#. For successfully trimmed seqs, match against barcodes
+#. Use to assess single or multiple copies (with some confidence score, based on how many total reads passing QC
+#. Of ones with single q-seq barcode, check that they have the correct qPCR
+#barcode
+#. pick 25 with desired 5X5 design
+
+Should think of some QC to do within each of these steps.
+
+Should also consider if/how to do this for the qPCR barcodes, to check that the 
+
+## Combine all sequences into a single DNAStringSet
+
+```{r}
+dirs <- here('data', '220603anj_pass') %>%
+  dir_ls
+reads <- 
+  dirs %>%
+  map(dir_ls, glob = '*.fastq') %>%
+  unlist %>%
+  readDNAStringSet(format = 'fastq')
+```
+
+
+## Give a common orientation
+## check that this is the correct oreitnation for the quant barcodes; if not, RC it.
+## Trim using the primers
+## Do some QC - check stats of matches; check that see the spacer and probe sequences
+## For successfully trimmed seqs, match against barcodes
+## Use to assess single or multiple copies (with some confidence score, based on how many total reads passing QC
+## Of ones with single q-seq barcode, check that they have the correct qPCR
+##arcode
+## pick 25 with desired 5X5 design
+
+# Notes
+
+how could I make a more robust pipeline?
+
+- Use the entire phagemid quant plasmid reference sequence as the reference to set the orientation?
+- combine the two approaches - extract the subsequence, and match against the barcode, as a way to minimize offtarget hits?
+- add the spacers to the ONT barcodes to max specificity
+
+How can I validate the results?
+
+Note, Bo mentioned that sometimes will get multiple barcodes because one read follows another.
+
+Notes during lab meeting:
+
+- terminlogy: indexing barcodes and quantification barcodes
+- Ask AG and/or Bo if the indexing barcodes get trimmed when demultiplexing, or if should still expect to see them
+- Could using the same barcodes for indexing be causing any of the weird results?
+- one approach would be to find the best match of each ONT read to the full set of reference sequences (including full qPCR + seq barcode regions).
+  - e.g. what I get with BURST, but might need to do with minimap2 or something that works with noisy long reads; that might require some custom postprocessing.
+
+

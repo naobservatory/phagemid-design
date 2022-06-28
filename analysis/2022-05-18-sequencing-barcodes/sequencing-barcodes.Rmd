@@ -131,6 +131,12 @@ Note, the melting temps look higher when I use the 'qPCR' parameter set.
 Need to pay attention to what parameter set is used, and record this.
 
 
+```{r}
+out_dir <- here('output', '2022-05-18-sequencing-barcodes')
+fn <- path(out_dir, 'sequencing-barcodes.csv')
+write_csv(seq_barcodes, fn)
+```
+
 # Full tag sequences
 
 Full tracer tag:
@@ -356,3 +362,8 @@ write_csv(eblocks, '2022-05-20-eblock-template-mm.csv')
 
 
 
+# Master table
+
+combine out all the info that seems relevant, in one table;
+also create a diagram showing the different sequences in linear order.
+trick is coming up with good names for things ;)
