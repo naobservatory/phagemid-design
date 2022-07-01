@@ -1,0 +1,174 @@
+
+
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+Hard constraints:
+- Each tracer will appear in each of the 7 dilutions in exactly one sample.
+<!--  -->
+
+Other aims
+- Each tracer should experience a wide range of proportions
+- Less important but also desirable, is that pairwise ratios should have good variation.
+- We are undecided on importance or desirability of total concentration variation
+<!--  -->
+
+We need to generate a table (matrix) to share and for Anjali to print out.
+Could have a graphical and CSV version.
+The table will have samples as rows, tracers as columns.
+
+let's start by doing random permutations
+
+```{r}
+# concentration in copies per microliter
+conc_low <- 0.1
+dilution_step <- 20
+num_samples <- 7
+conc_max <- conc_low * dilution_step^(num_samples - 1)
+
+dilution_df <- tibble(
+  dilution_power = 0:6,
+  dilution_factor = dilution_step^dilution_power,
+  conc = conc_max / dilution_factor,
+  dilution_name = str_c('D', dilution_power + 1)
+)
+dilution_df %>% knitr::kable()
+```
+
+Note, using Brian's scheme where D1 is undiluted / max concentration.
+
+
+```{r}
+#> vals <- str_c('D', 1:7)
+vals <- dilution_df$dilution_name
+
+set.seed(42)
+
+mat <- map(seq(num_tracers), ~sample(vals)) %>% 
+  unlist %>%
+  matrix(ncol = num_tracers, byrow = FALSE)
+rownames(mat) <- str_c('sample_', seq(num_samples))
+colnames(mat) <- str_c('tracer_', seq(num_tracers))
+mat
+```
+
+Let's check the proportions and total abundances by this scheme.
+
+```{r}
+scheme_df <- mat %>%
+  as_tibble(rownames = 'sample') %>%
+  pivot_longer(starts_with('tracer'), 
+    names_to = 'tracer', values_to = 'dilution_name') %>%
+  left_join(dilution_df, by = 'dilution_name') %>%
+  with_groups(sample, mutate,
+    proportion = conc / sum(conc)) %>%
+  glimpse
+```
+
+```{r}
+scheme_df %>%
+  ggplot(aes(y = tracer, 
+      x = proportion,
+      #> x = proportion / (1 - proportion), 
+      color = tracer)) +
+  scale_x_log10() +
+  ggbeeswarm::geom_quasirandom(groupOnX = FALSE)
+```
+
+```{r}
+mat_conc <- scheme_df %>%
+  metacal::build_matrix(sample, tracer, conc) %>%
+  print(digits = 2)
+mat_prop <- scheme_df %>%
+  metacal::build_matrix(sample, tracer, proportion) %>%
+  print(digits = 2)
+```
+
+a problem with this naive approach is that Tracer 2 is never in a large relative abundance.
+
+Basic check: Each tracer is getting added in the same total amount:
+
+```{r}
+mat_conc %>% colSums
+```
+
+What is the range of total tracer in each sample?
+
+```{r}
+mat_conc %>% rowSums %>% log10
+```
+
+
+## output
+
+```{r}
+mat %>%
+  as_tibble(rownames = 'sample') %>%
+  write_csv('sample-layout.csv')
+```
+
+```{r}
+mat %>%
+  as_tibble(rownames = 'sample') %>%
+  googlesheets4::write_sheet(
+  ss = 'https://docs.google.com/spreadsheets/d/1kg_7zHF3O_IGj4Il9nCr-fZfmUdq0BcR9Y8wRyexaQ8/edit#gid=912041240', sheet = 1)
+```
+
+## Notes
+
+Would potentially be nice to have the proportions above 1e-4 more evenly distributed.
+
+Might also want to add sample 8 as a sample with none of the tracers spiked in.
+
+
+## Sequencing
+
+We need to pick the index barcodes to use for forward and reverse indexes.
+Choose to be distinct from.
+
+We can get the ONT barcodes from the seq barcode table,
+
+```{r}
+sb <- here('output/2022-05-18-sequencing-barcodes/sequencing-barcodes.csv') %>%
+  read_csv
+tracer_ont_ids <- str_c('BC', c(26, 29, 17, 60, 33))
+fwd <- sb %>% slice(1) %>% pull(primer_1)
+rev <- sb %>% slice(1) %>% pull(primer_2)
+```
+
+Let's reproduce Anjali's analysis in  https://docs.google.com/spreadsheets/d/193HrcFhwOGRD9WOa1g_Nc_k5rPGlxOcQcr30IFSbt6U/edit#gid=0
+
+```{r}
+ss <- 'https://docs.google.com/spreadsheets/d/193HrcFhwOGRD9WOa1g_Nc_k5rPGlxOcQcr30IFSbt6U/edit#gid=0'
+order <- googlesheets4::read_sheet(ss)
+```
+
+
+```{r}
+y <- sb %>%
+  filter(! ont_barcode_id %in% tracer_ont_ids) %>%
+  select(primer_1, primer_2, ont_barcode_id, ont_barcode_sequence) %>%
+  pivot_longer(
+    starts_with('primer'), values_to = 'pcr_primer'
+  ) %>%
+  mutate(
+    full_primer = str_c('NN', ont_barcode_sequence, pcr_primer)
+  ) %>%
+  filter(
+    (name == 'primer_1' & ont_barcode_id <= 'BC30') |
+      (name == 'primer_2' & (ont_barcode_id > 'BC30' & ont_barcode_id <= 'BC63'))
+  ) %>%
+  glimpse
+```
+
+```{r}
+y1 <- order %>%
+  left_join(y, by = c('Barcode Name' = 'ont_barcode_id'))
+all.equal(y1 %>% pull('Full Primer'), y1 %>% pull(full_primer))
+```
+
+
+
