@@ -1,0 +1,207 @@
+
+
+```{r}
+library(tidyverse)
+library(here)
+library(generics)
+
+library(cowplot)
+theme_set(theme_cowplot())
+```
+
+```{r}
+# concentration in copies per microliter
+conc_low <- 0.1
+dilution_step <- 20
+num_samples <- 7
+conc_max <- conc_low * dilution_step^(num_samples - 1)
+
+dilution_df <- tibble(
+  dilution_power = 0:6,
+  dilution_factor = dilution_step^dilution_power,
+  conc = conc_max / dilution_factor,
+  dilution_name = str_c('D', '0', dilution_power + 1)
+)
+```
+
+## Explore single qPCR experiment, Cq values
+
+
+```{r}
+x <- 'data/2022-06-29-spike-in-experiment/results/2022-06-29-trip01.xlsx' %>%
+  here() %>%
+  readxl::read_excel(sheet = 'Results', skip = 40,
+    na = c("Undetermined")
+  ) %>%
+  janitor::clean_names() %>%
+  glimpse
+  #> ReadqPCR::read.taqman()
+```
+
+```{r}
+x1 <- x %>%
+  separate(sample_name, 
+    into = c('matrix', 'target_name', 'dilution_name'),
+    sep = '_', remove = FALSE
+  ) %>%
+  left_join(dilution_df, by = 'dilution_name')
+```
+
+```{r}
+x1 %>%
+  ggplot(aes(conc, ct, color = target_name)) +
+  scale_x_log10() +
+  geom_point(size = 2)
+```
+
+
+Estimate the efficiency from the slope of the standard curves:
+
+```{r}
+x1 %>%
+  #> filter(!is.na(target_name), conc > 200) %>%
+  filter(!is.na(target_name), conc > 1e4) %>%
+  with_groups(target_name, nest) %>%
+  mutate(
+    fit = map(data, ~lm(ct ~ log10(conc), data = .x)),
+    fit = map(fit, tidy)
+  ) %>%
+  unnest(fit) %>%
+  filter(term == 'log10(conc)') %>%
+  transmute(target_name, slope = estimate,
+    efficiency_hat = 10^(-1 / slope) - 1
+  )
+```
+
+Note, we get a better E-hat (closer to 1) when weuse the middle concentration, but I suspect that that is spurious - I suspect that the curve is flattening out there (not linear anymore) and it's causing the slope estimate to flatten out, which increases the estimated efficiency.
+
+Next steps involve 
+
+- determining the linear range, and estimating the efficiency from this
+- checking the NTC
+- adding the 'background' levels to the plot, like Anjali did
+<!--  -->
+
+## Read in all qPCR experiments
+
+## Explore amplification data
+
+- what do the trajectories look like, in the plateau zone?
+- can I reproduce the ct calculations?
+  - can I reproduce the delta-rn calculations? this would involve computing Rn-; see https://www.thermofisher.com/us/en/home/life-science/pcr/real-time-pcr/real-time-pcr-learning-center/real-time-pcr-basics/essentials-real-time-pcr.html and  https://www.mhtpmedicalgenomics.org.au/images/service-pdfs/Understanding_curves.pdf
+<!--  -->
+
+```{r}
+sam <- x1 %>%
+  select(starts_with('well'), sample_name, matrix, target_name, 
+    starts_with('dilution'), conc,
+    starts_with('baseline') # for computing and vis of baselines
+  ) %>%
+  distinct
+```
+
+TODO: Rethink through 'sample_name' and 'target_name'; note that 'target name' in the spreadsheet is not the same as what I define it as above (which is instead the primer/probe set)
+
+
+```{r}
+amp <- 'data/2022-06-29-spike-in-experiment/results/2022-06-29-trip01.xlsx' %>%
+  here() %>%
+  readxl::read_excel(sheet = 'Amplification Data', skip = 40,
+    na = c("Undetermined"),
+    col_types = c('numeric', 'text', 'numeric', 'text', 'numeric', 'numeric')
+  ) %>%
+  janitor::clean_names() %>%
+  select(-target_name) %>%
+  left_join(sam, by = c('well', 'well_position')) %>%
+  glimpse
+```
+
+```{r}
+amp %>%
+  filter(!is.na(target_name)) %>%
+  ggplot(aes(cycle, rn, color = target_name)) +
+  facet_wrap(~dilution_name) +
+  geom_line(aes(group = well_position)) +
+  geom_point()
+```
+
+Why do the baselines differ for the two targets? Does this have to do with plate geometry, or is it a feature of the probe?
+
+
+```{r}
+amp %>%
+  filter(!is.na(target_name)) %>%
+  ggplot(aes(cycle, delta_rn, color = target_name)) +
+  facet_wrap(~dilution_name) +
+  geom_line(aes(group = well_position)) +
+  geom_point()
+```
+
+```{r}
+amp %>%
+  filter(!is.na(target_name)) %>%
+  ggplot(aes(cycle, delta_rn, color = target_name)) +
+  facet_wrap(~dilution_name) +
+  #> scale_y_log10(limits = c(1e-3, 1e1)) +
+  scale_y_log10() +
+  geom_line(aes(group = well_position)) +
+  geom_point()
+```
+
+### understanding baselines
+
+To compute Delta-Rn from Rn, can compute the Rn- from the reported baselines from the software,
+
+Perhaps would be good to start by doing this by hand for a single case?
+
+```{r}
+baselines <- amp %>%
+  filter(cycle >= baseline_start & cycle <= baseline_end) %>%
+  with_groups(well, summarize,
+    rn_baseline = mean(rn)
+  )
+amp1 <- amp %>%
+  left_join(baselines, by = 'well') %>%
+  mutate(delta_rn_new = rn - rn_baseline)
+```
+
+```{r}
+amp1 %>%
+  select(starts_with('delta_rn'))
+```
+
+
+what if I look at the difference bwetween delta_rn and rn from the software output?
+
+
+```{r}
+amp %>%
+  filter(!is.na(target_name)) %>%
+  ggplot(aes(cycle, rn - delta_rn, color = target_name)) +
+  facet_wrap(~dilution_name) +
+  #> scale_y_log10(limits = c(1e-3, 1e1)) +
+  #> scale_y_log10() +
+  geom_line(aes(group = well_position)) +
+  geom_point()
+```
+
+Why is this not constant? According to the below formula, it seems like Rn - DeltaRn should equal a constant baseline value.
+
+Perhaps what the software does is fit a line, so that the baseline is actually not constant but a line with a non-zero slope.
+
+
+# Notes
+
+Next steps are going to involve debugging why we are getting amplification 
+
+Should plot the plate design, to make sure I understand, and consider the source of the Rn-.
+
+
+I don't understand how Delta Rn is calculated. 
+From the software manual,
+
+> •  The data collected is the normalized intensity of the reporter dye, or Rn.
+•  If end-point experiments include pre-PCR data points, the software calculates the delta Rn (ΔRn) value according to the following formula:
+ΔRn = Rn (post-PCR read) – Rn (pre-PCR read), where Rn = normalized readings.
+
+However, the difference between delta_rn and rn seems to differ by cycle.
