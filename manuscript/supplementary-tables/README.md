@@ -8,24 +8,20 @@ file. In other cases there was some other format or equations, so I exported
 both the original Excel spreadsheet and a reformatted TSV version.
 
 * Supplementary Table S1: Primer Sequences
-  * [TSV file](./Supplementary Table S1 - Primer Sequences.tsv)
+  * [TSV file](<./Supplementary Table S1 - Primer Sequences.tsv>)
 * Supplementary Table S2: Complete list of reagents, equipment, and suppliers  
-  * [Excel file](./Supplementary Table S2 - Reagents Equipment and
-    Suppliers.xlsx)
-  * [TSV file](./Supplementary Table S2 - Reagents Equipment and Suppliers.tsv)
+  * [Excel file](<./Supplementary Table S2 - Reagents Equipment and Suppliers.xlsx>)
+  * [TSV file](<./Supplementary Table S2 - Reagents Equipment and Suppliers.tsv>)
 * Supplementary Table S3: Plasmid Maps
-  * [TSV file](./Supplementary Table S3 - Plasmid Maps.tsv)
+  * [TSV file](<./Supplementary Table S3 - Plasmid Maps.tsv>)
 * Supplementary Table S4: Full Tracer Sequences
-  * [TSV file](./Supplementary Table S4 - Full Tracer Sequences.tsv)
+  * [TSV file](<./Supplementary Table S4 - Full Tracer Sequences.tsv>)
 * Supplementary Table S5: Barcode Sequences and Components
-  * [Excel file](./Supplementary Table S5 - Barcode Sequences and
-    Components.xlsx); has three sheets, but the second and third sheets contain
-    redundant information used for drafting the first sheet.
-  * [TSV file](./Supplementary Table S5 - Barcode Sequences and Components.tsv)
-    of first sheet
+  * [Excel file](<./Supplementary Table S5 - Barcode Sequences and Components.xlsx>); has three sheets, but the second and third sheets contain redundant information used for drafting the first sheet.
+  * [TSV file](<./Supplementary Table S5 - Barcode Sequences and Components.tsv>) of first sheet
 * Supplementary Table S6: Dilutions and concentrations for spike-in experiment
-  * [Excel file](./Supplementary Table S6 - Spike-in Concentrations.xlsx)
-  * [TSV file](./Supplementary Table S6 - Spike-in Concentrations.tsv)
+  * [Excel file](<./Supplementary Table S6 - Spike-in Concentrations.xlsx>)
+  * [TSV file](<./Supplementary Table S6 - Spike-in Concentrations.tsv>)
 
 ## Original tables
 
